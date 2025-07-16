@@ -4,7 +4,7 @@
         "title": "Sample Quiz",
         "questions": [
             {
-                "id": "q1",
+                "id": "1",
                 "text": "What is 2 + 2?",
                 "options": [
                     "3",
@@ -12,6 +12,16 @@
                     "5"
                 ],
                 "answerIndex": 1
+            },
+            {
+                "id": "2",
+                "text": "What is 1 + 2?",
+                "options": [
+                    "3",
+                    "4",
+                    "5"
+                ],
+                "answerIndex": 0
             }
         ]
     }
