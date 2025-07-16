@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/HomePage/HomePage";
-import Home from "../components/Home/Home";
+import HomePage from "../pages/HomePage";
+import QuizPage from "../pages/QuizPage";
 
 export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/h" element={<Home />} />
+      <Route path="/quiz/:id" element={<QuizPage />} />
     </Routes>
   );
 }
