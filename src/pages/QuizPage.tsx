@@ -12,12 +12,8 @@ export default function QuizPage() {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [isFinished, SetIsFinished] = useState<boolean>(false);
 
-  if (!id) {
-    return <NotFoundPage />;
-  }
-
   try {
-    const quiz = getQuiz(id);
+    const quiz = getQuiz(id!); // id is always defined, router routes to this page only if there is id
 
     function handleAnswer(selectedIndex: number) {
       const updatedAnswers = [...userAnswers, selectedIndex];
@@ -56,8 +52,7 @@ export default function QuizPage() {
         )}
       </>
     );
-  } catch (error) {
-    console.log(error);
+  } catch {
     return <NotFoundPage />;
   }
 }
