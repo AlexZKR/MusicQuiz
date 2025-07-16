@@ -14,6 +14,6 @@ export function getQuiz(id: QuizId): Quiz {
   if (quiz !== undefined) {
     return quiz;
   } else {
-    throw new Error("No quiz found!");
+    throw new Error("Quiz not found!");
   }
 }
