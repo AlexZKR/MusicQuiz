@@ -15,6 +15,10 @@ module.exports = {
         ],
     },
 
+    coveragePathIgnorePatterns: [
+        "<rootDir>/test/"
+    ],
+
     moduleNameMapper: {
         '\\.(css|sass|scss)$': 'identity-obj-proxy',
         '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',

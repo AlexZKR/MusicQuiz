@@ -20,7 +20,6 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
         initialValues={{ answer: "" }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log("Selected answer:", values.answer);
           onSubmitAnswer(Number(values.answer));
         }}
       >
