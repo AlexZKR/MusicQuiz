@@ -5,7 +5,8 @@ const HomePage = () => {
   const quizzes = getQuizzes();
   return (
     <>
-      <div>Home Page! Choose a quiz:</div>
+      <h1>Home Page! </h1>
+      <div>Choose a quiz:</div>
       <ul>
         {[...quizzes.values()].map((q) => (
           <li key={q.id}>
