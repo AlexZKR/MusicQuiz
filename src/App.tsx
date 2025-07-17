@@ -1,38 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import AppRoutes from "./routes/AppRoutes";
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  const [theme, setTheme] = useState<"light" | "dark">(
+  const [theme, setTheme] = useState<'light' | 'dark'>(
     () =>
-      (localStorage.getItem("theme") as "light" | "dark") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light")
+      (localStorage.getItem('theme') as 'light' | 'dark') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light')
   );
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   return (
     <>
-      <div className="min-h-screen flex flex-col bg-background text-primary transition-colors">
+      <div className="bg-background text-primary flex min-h-screen flex-col transition-colors">
         <header className="flex items-center justify-between p-4">
-          <h1 className="text-2xl font-semibold text-accent">MusicQuiz</h1>
+          <h1 className="text-accent text-2xl font-semibold">MusicQuiz</h1>
           <div className="flex space-x-2">
             {/* Theme toggle */}
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="px-3 py-1 rounded bg-surface"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="bg-surface rounded px-3 py-1"
             >
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+              {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
             </button>
             {/* Translate placeholder */}
             <button
-              onClick={() => alert("Translate feature coming soon!")}
-              className="px-3 py-1 rounded bg-surface text-content"
+              onClick={() => alert('Translate feature coming soon!')}
+              className="bg-surface text-content rounded px-3 py-1"
             >
               Translate
             </button>

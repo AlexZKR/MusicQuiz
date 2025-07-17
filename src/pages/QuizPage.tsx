@@ -1,13 +1,13 @@
-import { useParams } from "react-router-dom";
-import type { Quiz, QuizId } from "../models/quiz";
-import { getQuiz } from "../services/quizService";
-import NotFoundPage from "./NotFound";
-import QuizQuestion from "../components/quiz/QuizQuestion";
-import { useState } from "react";
-import H1Heading from "../components/headings/H1Heading";
-import H2HeadingSubtitle from "../components/headings/H2HeadingSubtitle";
-import ButtonLink from "../components/links/ButtonLink";
-import H3Heading from "../components/headings/H3Heading";
+import { useParams } from 'react-router-dom';
+import type { Quiz, QuizId } from '../models/quiz';
+import { getQuiz } from '../services/quizService';
+import NotFoundPage from './NotFound';
+import QuizQuestion from '../components/quiz/QuizQuestion';
+import { useState } from 'react';
+import H1Heading from '../components/headings/H1Heading';
+import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
+import ButtonLink from '../components/links/ButtonLink';
+import H3Heading from '../components/headings/H3Heading';
 
 export default function QuizPage() {
   const { id } = useParams<{ id: QuizId }>();
@@ -39,7 +39,7 @@ export default function QuizPage() {
           : QuizResultsLayout(quiz, userAnswers)}
 
         <ButtonLink
-          className="hover:bg-surface text-content font-semibold py-1 px-3 mx-3 rounded transition"
+          className="hover:bg-surface text-content mx-3 rounded px-3 py-1 font-semibold transition"
           to="/"
         >
           Go back to home page

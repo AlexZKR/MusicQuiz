@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { FakeQuiz1Id, FakeQuizzes } from "../testdata";
-import { MemoryRouter } from "react-router-dom";
-import AppRoutes from "../../../src/routes/AppRoutes";
-import "@testing-library/jest-dom";
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { FakeQuiz1Id, FakeQuizzes } from '../testdata';
+import { MemoryRouter } from 'react-router-dom';
+import AppRoutes from '../../../src/routes/AppRoutes';
+import '@testing-library/jest-dom';
 
 export const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
 
@@ -17,7 +17,7 @@ export function getRadioButton(
   btns: HTMLElement[],
   btnValue: number
 ): HTMLElement {
-  const button = btns.find((r) => Number(r.getAttribute("value")) === btnValue);
+  const button = btns.find((r) => Number(r.getAttribute('value')) === btnValue);
   if (!button) throw new Error(`Could not find radio value=${btnValue}`);
   return button;
 }
@@ -48,11 +48,11 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
     );
 
     // Choose answer
-    const btn = getRadioButton(screen.getAllByRole("radio"), btnSelections[i]);
+    const btn = getRadioButton(screen.getAllByRole('radio'), btnSelections[i]);
     await userEvent.click(btn);
 
     // Submit answer
-    const submit = screen.getByRole("button", { name: /submit answer/i });
+    const submit = screen.getByRole('button', { name: /submit answer/i });
     await userEvent.click(submit);
   }
 }

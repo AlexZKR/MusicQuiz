@@ -1,6 +1,6 @@
-import type { Quiz } from "../../models/quiz";
-import { quizPath } from "../../routes/routeUtils";
-import ButtonLink from "../links/ButtonLink";
+import type { Quiz } from '../../models/quiz';
+import { quizPath } from '../../routes/routeUtils';
+import ButtonLink from '../links/ButtonLink';
 
 interface QuizProps {
   q: Quiz;
@@ -9,7 +9,7 @@ interface QuizProps {
 export default function QuizLiMember({ q }: QuizProps) {
   return (
     <>
-      <div className="flex justify-between items-center p-1 text-content">
+      <div className="text-content flex items-center justify-between p-1">
         - {q.title} (Questions: {q.questions.length})
         <ButtonLink to={quizPath(q.id)}>Pass the quiz!</ButtonLink>
       </div>

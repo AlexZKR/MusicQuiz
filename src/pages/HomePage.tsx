@@ -1,7 +1,7 @@
-import H1Heading from "../components/headings/H1Heading";
-import H2HeadingSubtitle from "../components/headings/H2HeadingSubtitle";
-import QuizLiMember from "../components/quiz/QuizLiMember";
-import { getQuizzes } from "../services/quizService";
+import H1Heading from '../components/headings/H1Heading';
+import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
+import QuizLiMember from '../components/quiz/QuizLiMember';
+import { getQuizzes } from '../services/quizService';
 
 const HomePage = () => {
   const quizzes = getQuizzes();
@@ -10,9 +10,9 @@ const HomePage = () => {
       <H1Heading>Choose a Quiz</H1Heading>
       <H2HeadingSubtitle>Test your music knowledge!</H2HeadingSubtitle>
 
-      <ul className="w-3/4 mx-auto space-y-3">
+      <ul className="mx-auto w-3/4 space-y-3">
         {[...quizzes.values()].map((q) => (
-          <li key={q.id} className="p-4 bg-surface rounded shadow transition">
+          <li key={q.id} className="bg-surface rounded p-4 shadow transition">
             <QuizLiMember q={q} />
           </li>
         ))}

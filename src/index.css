@@ -6,41 +6,41 @@
    Light‑mode theme variables — higher contrast pastels
 ───────────────────────────────────── */
 @theme {
-    --color-primary: #6B8E6B;
-    /* Deeper sage green for clear emphasis */
+  --color-primary: #6b8e6b;
+  /* Deeper sage green for clear emphasis */
 
-    --color-secondary: #E2B89D;
-    /* Subtle apricot for soft accents */
+  --color-secondary: #e2b89d;
+  /* Subtle apricot for soft accents */
 
-    --color-tertiary: #7D6D85;
-    /* Darker dusty lavender for visibility */
+  --color-tertiary: #7d6d85;
+  /* Darker dusty lavender for visibility */
 
-    --color-muted: #D1D1D1;
-    /* Soft gray for understated UI */
+  --color-muted: #d1d1d1;
+  /* Soft gray for understated UI */
 
-    --color-surface: #F2EFED;
-    /* Soft off‑white/taupe surface */
+  --color-surface: #f2efed;
+  /* Soft off‑white/taupe surface */
 
-    --color-accent: #E27D7A;
-    /* Warm coral‑salmon for gentle pops */
+  --color-accent: #e27d7a;
+  /* Warm coral‑salmon for gentle pops */
 
-    --color-content: #2C2C2C;
-    /* Dark charcoal for strong readability */
+  --color-content: #2c2c2c;
+  /* Dark charcoal for strong readability */
 
-    --color-background: #D6D1C9;
-    /* Slightly deeper beige‑cream background */
+  --color-background: #d6d1c9;
+  /* Slightly deeper beige‑cream background */
 }
 
 /* ─────────────────────────────────────
    Dark‑mode theme variables — unchanged
 ───────────────────────────────────── */
 .dark {
-    --color-primary: #618685;
-    --color-secondary: #C7A4FF;
-    --color-tertiary: #A3BFD9;
-    --color-muted: #4F4F4F;
-    --color-surface: #2B2D42;
-    --color-accent: #FF8C94;
-    --color-content: #EDEDED;
-    --color-background: #1A1A2E;
+  --color-primary: #618685;
+  --color-secondary: #c7a4ff;
+  --color-tertiary: #a3bfd9;
+  --color-muted: #4f4f4f;
+  --color-surface: #2b2d42;
+  --color-accent: #ff8c94;
+  --color-content: #ededed;
+  --color-background: #1a1a2e;
 }

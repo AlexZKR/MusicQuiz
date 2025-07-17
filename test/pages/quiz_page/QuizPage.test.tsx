@@ -1,13 +1,13 @@
-import { screen } from "@testing-library/react";
-import * as service from "../../../src/services/quizService";
-import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
+import { screen } from '@testing-library/react';
+import * as service from '../../../src/services/quizService';
+import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import {
   assertQuizResultScreenHappyPath,
   assertQuizRunnerHappyPath,
   renderQuizPage,
   testQuiz,
-} from "./helpers";
+} from './helpers';
 
 interface Case {
   name: string;
@@ -18,20 +18,20 @@ interface Case {
 
 const cases: Case[] = [
   {
-    name: "all correct, happy path",
+    name: 'all correct, happy path',
     btnsToClick: testQuiz.questions.map((q) => q.answerIndex), //click only correct buttons
     expectedResultString: `You got ${testQuiz.questions.length} out of ${testQuiz.questions.length} answers!`,
   },
   {
-    name: "some wrong, happy path",
+    name: 'some wrong, happy path',
     btnsToClick: testQuiz.questions.map(() => 1),
     expectedResultString: `You got 1 out of ${testQuiz.questions.length} answers!`,
   },
 ];
 
-describe("QuizPage happy paths", () => {
+describe('QuizPage happy paths', () => {
   beforeEach(() => {
-    jest.spyOn(service, "getQuiz").mockReturnValue(testQuiz);
+    jest.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
   });
 
   afterEach(() => {
@@ -39,7 +39,7 @@ describe("QuizPage happy paths", () => {
   });
 
   test.each(cases)(
-    "$name",
+    '$name',
     async ({
       btnsToClick: selections,
       expectedResultString: expectedResult,
@@ -52,22 +52,22 @@ describe("QuizPage happy paths", () => {
   );
 });
 
-test("validation error when submit and not selected answer", async () => {
-  jest.spyOn(service, "getQuiz").mockReturnValue(testQuiz);
+test('validation error when submit and not selected answer', async () => {
+  jest.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
   renderQuizPage(testQuiz.id);
 
-  const submit = screen.getByRole("button", { name: /submit answer/i });
+  const submit = screen.getByRole('button', { name: /submit answer/i });
   await userEvent.click(submit);
   expect(
-    await screen.findByText("Please select an option")
+    await screen.findByText('Please select an option')
   ).toBeInTheDocument();
 });
 
-test("unknown quiz ID shows Not Found", () => {
-  jest.spyOn(service, "getQuiz").mockImplementationOnce(() => {
-    throw new Error("Quiz not found!");
+test('unknown quiz ID shows Not Found', () => {
+  jest.spyOn(service, 'getQuiz').mockImplementationOnce(() => {
+    throw new Error('Quiz not found!');
   });
 
-  renderQuizPage("random_quiz_id");
-  expect(screen.getByText("Not Found!")).toBeInTheDocument();
+  renderQuizPage('random_quiz_id');
+  expect(screen.getByText('Not Found!')).toBeInTheDocument();
 });

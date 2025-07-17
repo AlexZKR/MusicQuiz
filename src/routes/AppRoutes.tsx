@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "../pages/HomePage";
-import QuizPage from "../pages/QuizPage";
-import NotFoundPage from "../pages/NotFound";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import HomePage from '../pages/HomePage';
+import QuizPage from '../pages/QuizPage';
+import NotFoundPage from '../pages/NotFound';
 
 export default function AppRoutes() {
   return (

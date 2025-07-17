@@ -1,5 +1,5 @@
-import type { Quiz, QuizId } from "../models/quiz";
-import quizzesData from "../data/quizzes.json";
+import type { Quiz, QuizId } from '../models/quiz';
+import quizzesData from '../data/quizzes.json';
 
 const quizMap: Map<QuizId, Quiz> = new Map(
   (quizzesData as Quiz[]).map((quiz) => [quiz.id as QuizId, quiz])
@@ -14,6 +14,6 @@ export function getQuiz(id: QuizId): Quiz {
   if (quiz !== undefined) {
     return quiz;
   } else {
-    throw new Error("Quiz not found!");
+    throw new Error('Quiz not found!');
   }
 }

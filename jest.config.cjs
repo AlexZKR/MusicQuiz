@@ -1,30 +1,25 @@
 // jest.config.cjs
 module.exports = {
-    preset: 'ts-jest',
-    testEnvironment: 'jsdom',
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
 
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 
-    // load setup before tests
-    setupFiles: ['<rootDir>/jest.setup.ts'],
+  // load setup before tests
+  setupFiles: ['<rootDir>/jest.setup.ts'],
 
-    transform: {
-        '^.+\\.(ts|tsx)$': [
-            'ts-jest',
-            { tsconfig: 'tsconfig.jest.json' }
-        ],
-    },
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }],
+  },
 
-    coveragePathIgnorePatterns: [
-        "<rootDir>/test/"
-    ],
+  coveragePathIgnorePatterns: ['<rootDir>/test/'],
 
-    moduleNameMapper: {
-        '\\.(css|sass|scss)$': 'identity-obj-proxy',
-        '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',
-    },
+  moduleNameMapper: {
+    '\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/__mocks__/fileMock.js',
+  },
 
-    transformIgnorePatterns: ['/node_modules/'],
+  transformIgnorePatterns: ['/node_modules/'],
 
-    testMatch: ['<rootDir>/test/**/*.(spec|test).(ts|tsx|js)'],
+  testMatch: ['<rootDir>/test/**/*.(spec|test).(ts|tsx|js)'],
 };
