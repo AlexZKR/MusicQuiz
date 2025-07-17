@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { FakeQuiz1Id, FakeQuizzes } from "../testdata";
 import { MemoryRouter } from "react-router-dom";
 import AppRoutes from "../../../src/routes/AppRoutes";
+import "@testing-library/jest-dom";
 
 export const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
 

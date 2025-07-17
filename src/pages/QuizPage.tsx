@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import type { QuizId } from "../models/quiz";
+import type { Quiz, QuizId } from "../models/quiz";
 import { getQuiz } from "../services/quizService";
 import NotFoundPage from "./NotFound";
 import QuizQuestion from "../components/Quiz/QuizQuestion";
@@ -27,41 +27,50 @@ export default function QuizPage() {
       }
     }
 
-    function countCorrectAnswers(): number {
-      return userAnswers.filter(
-        (selected, i) => selected === quiz.questions[i].answerIndex
-      ).length;
-    }
-
     return (
       <>
         <h1>Quiz: {quiz.title}</h1>
-        <h2>
-          {!isFinished
-            ? `Question #${currQuestionIndex + 1} out of ${
-                quiz.questions.length
-              }`
-            : ""}
-        </h2>
-
-        {!isFinished ? (
-          <QuizQuestion
-            q={quiz.questions[currQuestionIndex]}
-            onSubmitAnswer={handleAnswer}
-          />
-        ) : (
-          <div>
-            <h3>Quiz Complete!</h3>
-            <p>
-              You got {countCorrectAnswers()} out of {quiz.questions.length}{" "}
-              answers!
-            </p>
-          </div>
-        )}
+        {!isFinished
+          ? QuizQuestionLayout(currQuestionIndex, quiz, handleAnswer)
+          : QuizResultsLayout(quiz, userAnswers)}
         <Link to="/">Go back to home page</Link>
       </>
     );
   } catch {
     return <NotFoundPage />;
   }
+}
+
+function QuizQuestionLayout(
+  currQuestionIndex: number,
+  quiz: Quiz,
+  handleAnswer: (selectedIndex: number) => void
+) {
+  return (
+    <>
+      <h2>
+        Question #{currQuestionIndex + 1} out of {quiz.questions.length}
+      </h2>
+      <QuizQuestion
+        q={quiz.questions[currQuestionIndex]}
+        onSubmitAnswer={handleAnswer}
+      />
+    </>
+  );
+}
+
+function QuizResultsLayout(quiz: Quiz, userAnswers: number[]) {
+  function countCorrectAnswers(): number {
+    return userAnswers.filter(
+      (selected, i) => selected === quiz.questions[i].answerIndex
+    ).length;
+  }
+  return (
+    <>
+      <h3>Quiz Complete!</h3>
+      <p>
+        You got {countCorrectAnswers()} out of {quiz.questions.length} answers!
+      </p>
+    </>
+  );
 }
