@@ -2,9 +2,12 @@ import { useParams } from "react-router-dom";
 import type { Quiz, QuizId } from "../models/quiz";
 import { getQuiz } from "../services/quizService";
 import NotFoundPage from "./NotFound";
-import QuizQuestion from "../components/Quiz/QuizQuestion";
+import QuizQuestion from "../components/quiz/QuizQuestion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import H1Heading from "../components/headings/H1Heading";
+import H2HeadingSubtitle from "../components/headings/H2HeadingSubtitle";
+import ButtonLink from "../components/links/ButtonLink";
+import H3Heading from "../components/headings/H3Heading";
 
 export default function QuizPage() {
   const { id } = useParams<{ id: QuizId }>();
@@ -29,11 +32,18 @@ export default function QuizPage() {
 
     return (
       <>
-        <h1>Quiz: {quiz.title}</h1>
+        <H1Heading>Quiz: {quiz.title}</H1Heading>
+
         {!isFinished
           ? QuizQuestionLayout(currQuestionIndex, quiz, handleAnswer)
           : QuizResultsLayout(quiz, userAnswers)}
-        <Link to="/">Go back to home page</Link>
+
+        <ButtonLink
+          className="hover:bg-blue-500 text-white font-semibold py-1 px-3 mx-3 rounded transition"
+          to="/"
+        >
+          Go back to home page
+        </ButtonLink>
       </>
     );
   } catch {
@@ -48,9 +58,9 @@ function QuizQuestionLayout(
 ) {
   return (
     <>
-      <h2>
+      <H2HeadingSubtitle>
         Question #{currQuestionIndex + 1} out of {quiz.questions.length}
-      </h2>
+      </H2HeadingSubtitle>
       <QuizQuestion
         q={quiz.questions[currQuestionIndex]}
         onSubmitAnswer={handleAnswer}
@@ -65,12 +75,13 @@ function QuizResultsLayout(quiz: Quiz, userAnswers: number[]) {
       (selected, i) => selected === quiz.questions[i].answerIndex
     ).length;
   }
+
   return (
     <>
-      <h3>Quiz Complete!</h3>
-      <p>
+      <H3Heading>Quiz Complete!</H3Heading>
+      <H2HeadingSubtitle>
         You got {countCorrectAnswers()} out of {quiz.questions.length} answers!
-      </p>
+      </H2HeadingSubtitle>
     </>
   );
 }
