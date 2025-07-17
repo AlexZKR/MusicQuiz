@@ -4,6 +4,7 @@ import { getQuiz } from "../services/quizService";
 import NotFoundPage from "./NotFound";
 import QuizQuestion from "../components/Quiz/QuizQuestion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function QuizPage() {
   const { id } = useParams<{ id: QuizId }>();
@@ -49,14 +50,15 @@ export default function QuizPage() {
             onSubmitAnswer={handleAnswer}
           />
         ) : (
-          <>
+          <div>
             <h3>Quiz Complete!</h3>
             <p>
               You got {countCorrectAnswers()} out of {quiz.questions.length}{" "}
               answers!
             </p>
-          </>
+          </div>
         )}
+        <Link to="/">Go back to home page</Link>
       </>
     );
   } catch {

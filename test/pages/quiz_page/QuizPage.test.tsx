@@ -1,11 +1,13 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import * as service from "../../../src/services/quizService";
 import "@testing-library/jest-dom";
-import AppRoutes from "../../../src/routes/AppRoutes";
-import { FakeQuiz1Id, FakeQuizzes } from "../testdata";
 import userEvent from "@testing-library/user-event";
-import { getRadioButton } from "./helpers";
+import {
+  assertQuizResultScreenHappyPath,
+  assertQuizRunnerHappyPath,
+  renderQuizPage,
+  testQuiz,
+} from "./helpers";
 
 interface Case {
   name: string;
@@ -14,8 +16,6 @@ interface Case {
   expectedResultString: string;
 }
 
-const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
-
 const cases: Case[] = [
   {
     name: "all correct, happy path",
@@ -23,7 +23,7 @@ const cases: Case[] = [
     expectedResultString: `You got ${testQuiz.questions.length} out of ${testQuiz.questions.length} answers!`,
   },
   {
-    name: "all wrong, happy path",
+    name: "some wrong, happy path",
     btnsToClick: testQuiz.questions.map(() => 1),
     expectedResultString: `You got 1 out of ${testQuiz.questions.length} answers!`,
   },
@@ -39,52 +39,22 @@ describe("QuizPage happy paths", () => {
   });
 
   test.each(cases)(
-    "$name → shows correct summary",
+    "$name",
     async ({
       btnsToClick: selections,
       expectedResultString: expectedResult,
     }) => {
-      render(
-        <MemoryRouter initialEntries={[`/quiz/${FakeQuiz1Id}`]}>
-          <AppRoutes />
-        </MemoryRouter>
-      );
+      renderQuizPage(testQuiz.id);
 
-      // Assert quiz runner flow
-      for (let i = 0; i < testQuiz.questions.length; i++) {
-        const q = testQuiz.questions[i];
-
-        await screen.findByText(q.text);
-
-        // Current question number
-        expect(
-          await screen.findByText(
-            `Question #${i + 1} out of ${testQuiz.questions.length}`
-          )
-        );
-
-        // Choose answer
-        const btn = getRadioButton(screen.getAllByRole("radio"), selections[i]);
-        await userEvent.click(btn);
-
-        // Submit answer
-        const submit = screen.getByRole("button", { name: /submit answer/i });
-        await userEvent.click(submit);
-      }
-
-      // Assert result screen
-      expect(await screen.findByText(expectedResult)).toBeInTheDocument();
+      await assertQuizRunnerHappyPath(selections);
+      await assertQuizResultScreenHappyPath(expectedResult);
     }
   );
 });
 
 test("validation error when submit and not selected answer", async () => {
   jest.spyOn(service, "getQuiz").mockReturnValue(testQuiz);
-  render(
-    <MemoryRouter initialEntries={[`/quiz/${FakeQuiz1Id}`]}>
-      <AppRoutes />
-    </MemoryRouter>
-  );
+  renderQuizPage(testQuiz.id);
 
   const submit = screen.getByRole("button", { name: /submit answer/i });
   await userEvent.click(submit);
@@ -98,11 +68,6 @@ test("unknown quiz ID shows Not Found", () => {
     throw new Error("Quiz not found!");
   });
 
-  render(
-    <MemoryRouter initialEntries={["/quiz/some-random-id"]}>
-      <AppRoutes />
-    </MemoryRouter>
-  );
-
+  renderQuizPage("random_quiz_id");
   expect(screen.getByText("Not Found!")).toBeInTheDocument();
 });
