@@ -1,37 +1,88 @@
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
+import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import react from 'eslint-plugin-react';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import jestPlugin from 'eslint-plugin-jest';
-import prettier from 'eslint-plugin-prettier';
+import { fixupPluginRules } from '@eslint/compat';
+import prettierConfig from 'eslint-config-prettier';
+import globals from 'globals';
 
-export default tsEslint.config(
-  // Global ignore
-  { ignores: ['dist', 'build', 'coverage'] },
-
-  // Base JavaScript + TS rules
-  eslint.configs.recommended,
-  tsEslint.configs.recommended,
-
-  // React-specific rules
-  react.configs.recommended,
-  react.configs['jsx-runtime'],
-  reactHooks.configs.recommended,
-  reactRefresh.configs.vite,
-
-  // Jest rules for test files
+export default [
+  // Global ignores
   {
-    files: ['**/*.test.{ts,tsx}', '**/__tests__/*.{ts,tsx}'],
-    plugins: { jest: jestPlugin },
+    ignores: ['**/node_modules/', '**/dist/', '**/build/', '**/coverage/'],
+  },
+
+  // Base JS rules
+  eslint.configs.recommended,
+
+  // TypeScript rules
+  ...tsEslint.configs.recommended,
+
+  // React rules
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      react: reactPlugin,
+    },
+    settings: {
+      react: {
+        version: 'detect', // Automatically detect React version
+      },
+    },
     rules: {
-      ...jestPlugin.configs.recommended.rules,
+      ...reactPlugin.configs.recommended.rules,
+      ...reactPlugin.configs['jsx-runtime'].rules,
     },
     languageOptions: {
-      globals: { jest: 'readonly', describe: 'readonly', it: 'readonly' },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
   },
 
-  // Integrate Prettier
-  prettier.configs.recommended
-);
+  // React Hooks rules
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      'react-hooks': fixupPluginRules(reactHooks),
+    },
+    rules: reactHooks.configs.recommended.rules,
+  },
+
+  // Jest rules for test files
+  {
+    files: ['**/*.test.{js,jsx,ts,tsx}', '**/__tests__/**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      jest: jestPlugin,
+    },
+    rules: {
+      ...jestPlugin.configs.recommended.rules,
+      'jest/expect-expect': [
+        'warn',
+        {
+          assertFunctionNames: [
+            'expect',
+            'assertQuizRunnerHappyPath',
+            'assertQuizResultScreenHappyPath',
+          ],
+        },
+      ],
+    },
+  },
+
+  // Node.js environment for config files
+  {
+    files: ['**/*.config.{js,cjs}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+
+  // Prettier config (must come last)
+  prettierConfig,
+];
