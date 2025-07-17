@@ -12,10 +12,7 @@ const HomePage = () => {
 
       <ul className="w-3/4 mx-auto space-y-3">
         {[...quizzes.values()].map((q) => (
-          <li
-            key={q.id}
-            className="p-4 bg-white dark:bg-gray-800 rounded shadow transition"
-          >
+          <li key={q.id} className="p-4 bg-surface rounded shadow transition">
             <QuizLiMember q={q} />
           </li>
         ))}

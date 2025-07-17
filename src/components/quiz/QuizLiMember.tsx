@@ -9,7 +9,7 @@ interface QuizProps {
 export default function QuizLiMember({ q }: QuizProps) {
   return (
     <>
-      <div className="flex justify-between items-center p-1">
+      <div className="flex justify-between items-center p-1 text-content">
         - {q.title} (Questions: {q.questions.length})
         <ButtonLink to={quizPath(q.id)}>Pass the quiz!</ButtonLink>
       </div>

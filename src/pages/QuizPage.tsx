@@ -39,7 +39,7 @@ export default function QuizPage() {
           : QuizResultsLayout(quiz, userAnswers)}
 
         <ButtonLink
-          className="hover:bg-blue-500 text-white font-semibold py-1 px-3 mx-3 rounded transition"
+          className="hover:bg-surface text-content font-semibold py-1 px-3 mx-3 rounded transition"
           to="/"
         >
           Go back to home page

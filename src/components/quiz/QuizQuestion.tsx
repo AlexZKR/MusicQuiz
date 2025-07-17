@@ -36,8 +36,8 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
             <button
               type="submit"
               className="
-                bg-green-800 hover:bg-green-600
-                text-white font-semibold
+                bg-primary
+                text-content
                 px-6 py-2 rounded
                 transition
                 cursor-pointer
@@ -69,8 +69,8 @@ function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
           key={index}
           className="
             cursor-pointer
-            bg-gray-200 dark:bg-gray-700
-            hover:bg-gray-300 dark:hover:bg-gray-600
+            bg-surface
+            hover:bg-tertiary
             px-4 py-2 rounded
             flex items-center space-x-2
             transition
@@ -80,7 +80,7 @@ function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
             type="radio"
             name="answer"
             value={String(index)}
-            className="form-radio h-5 w-5 text-green-600"
+            className="form-radio h-5 w-5 text-content"
           />
           <span className="select-none">{option}</span>
         </label>

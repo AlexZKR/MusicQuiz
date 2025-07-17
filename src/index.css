@@ -1,1 +1,46 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────
+   Light‑mode theme variables — higher contrast pastels
+───────────────────────────────────── */
+@theme {
+    --color-primary: #6B8E6B;
+    /* Deeper sage green for clear emphasis */
+
+    --color-secondary: #E2B89D;
+    /* Subtle apricot for soft accents */
+
+    --color-tertiary: #7D6D85;
+    /* Darker dusty lavender for visibility */
+
+    --color-muted: #D1D1D1;
+    /* Soft gray for understated UI */
+
+    --color-surface: #F2EFED;
+    /* Soft off‑white/taupe surface */
+
+    --color-accent: #E27D7A;
+    /* Warm coral‑salmon for gentle pops */
+
+    --color-content: #2C2C2C;
+    /* Dark charcoal for strong readability */
+
+    --color-background: #D6D1C9;
+    /* Slightly deeper beige‑cream background */
+}
+
+/* ─────────────────────────────────────
+   Dark‑mode theme variables — unchanged
+───────────────────────────────────── */
+.dark {
+    --color-primary: #618685;
+    --color-secondary: #C7A4FF;
+    --color-tertiary: #A3BFD9;
+    --color-muted: #4F4F4F;
+    --color-surface: #2B2D42;
+    --color-accent: #FF8C94;
+    --color-content: #EDEDED;
+    --color-background: #1A1A2E;
+}
