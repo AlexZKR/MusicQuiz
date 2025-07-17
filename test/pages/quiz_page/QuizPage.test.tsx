@@ -50,18 +50,29 @@ describe("QuizPage happy paths", () => {
         </MemoryRouter>
       );
 
+      // Assert quiz runner flow
       for (let i = 0; i < testQuiz.questions.length; i++) {
         const q = testQuiz.questions[i];
 
         await screen.findByText(q.text);
 
+        // Current question number
+        expect(
+          await screen.findByText(
+            `Question #${i + 1} out of ${testQuiz.questions.length}`
+          )
+        );
+
+        // Choose answer
         const btn = getRadioButton(screen.getAllByRole("radio"), selections[i]);
         await userEvent.click(btn);
 
+        // Submit answer
         const submit = screen.getByRole("button", { name: /submit answer/i });
         await userEvent.click(submit);
       }
 
+      // Assert result screen
       expect(await screen.findByText(expectedResult)).toBeInTheDocument();
     }
   );

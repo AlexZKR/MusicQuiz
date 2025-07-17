@@ -34,7 +34,14 @@ export default function QuizPage() {
 
     return (
       <>
-        <h2>Quiz: {quiz.title}</h2>
+        <h1>Quiz: {quiz.title}</h1>
+        <h2>
+          {!isFinished
+            ? `Question #${currQuestionIndex + 1} out of ${
+                quiz.questions.length
+              }`
+            : ""}
+        </h2>
 
         {!isFinished ? (
           <QuizQuestion
