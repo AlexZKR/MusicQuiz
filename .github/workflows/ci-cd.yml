@@ -46,8 +46,6 @@ jobs:
     name: Build Site
     runs-on: ubuntu-latest
     needs: test
-    outputs:
-      artifact: ${{ steps.upload.outputs.artifact_id }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -75,4 +73,4 @@ jobs:
       - name: Deploy artifact
         uses: actions/deploy-pages@v4
         with:
-          artifact_name: ${{ needs.build.outputs.artifact }}
+          artifact_name: gh-pages-dist
