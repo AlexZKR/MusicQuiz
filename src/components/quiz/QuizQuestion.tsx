@@ -18,6 +18,7 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
       <H3Heading>{q.text}</H3Heading>
 
       <Formik
+        key={q.id}
         initialValues={{ answer: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
