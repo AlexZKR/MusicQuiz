@@ -1,7 +1,15 @@
+// tsconfig.json
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "./tsconfig.app.json", // pick up your app’s compilerOptions
+  "compilerOptions": {
+    // these may already be in tsconfig.app.json, but ensure they're here
+    "jsx": "react-jsx", // enable TSX
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src", // your source files
+    "test" // your test files
+  ],
+  "exclude": ["node_modules", "dist"]
 }
