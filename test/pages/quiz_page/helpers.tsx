@@ -22,6 +22,11 @@ export function getRadioButton(
   return button;
 }
 
+function assertNoRadiosChecked() {
+  const radios = screen.getAllByRole('radio');
+  radios.forEach((r) => expect(r).not.toBeChecked());
+}
+
 export function renderQuizPage(quiz_id: string) {
   render(
     <MemoryRouter initialEntries={[`/quiz/${quiz_id}`]}>
@@ -47,6 +52,7 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
       )
     );
 
+    assertNoRadiosChecked();
     // Choose answer
     const btn = getRadioButton(screen.getAllByRole('radio'), btnSelections[i]);
     await userEvent.click(btn);
