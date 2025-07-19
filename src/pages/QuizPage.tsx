@@ -73,20 +73,21 @@ function QuizQuestionLayout(
         Question #{currQuestionIndex + 1} out of {quiz.questions.length}
       </H2HeadingSubtitle>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {/* Empty zone (spacer) */}
         <div></div>
-        <div className="">
+        <section role="region" aria-label="Question prompt">
           <QuizQuestion
             q={quiz.questions[currQuestionIndex]}
             onSubmitAnswer={handleAnswer}
           />
-        </div>
-        <div className="">
+        </section>
+        <section role="region" aria-label="Question progress">
           <QuestionProgressList
             quiz={quiz}
             userAnswers={userAnswers}
             currQuestionIndex={currQuestionIndex}
           />
-        </div>
+        </section>
       </div>
     </>
   );

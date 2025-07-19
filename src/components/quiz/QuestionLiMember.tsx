@@ -31,20 +31,14 @@ export default function QuestionLiMember({
 }
 
 function FaIcon(icon: IconDefinition) {
-  let bg_color;
-  switch (icon) {
-    case faCircleCheck:
-      bg_color = 'success';
-      break;
-    case faCircleXmark:
-      bg_color = 'error';
-      break;
-    case faCircle:
-      bg_color = 'surface';
-      break;
-    default:
-      break;
+  let bg_color = 'surface';
+
+  if (icon === faCircleCheck) {
+    bg_color = 'success';
+  } else if (icon === faCircleXmark) {
+    bg_color = 'error';
   }
+
   return (
     <FontAwesomeIcon
       icon={icon}

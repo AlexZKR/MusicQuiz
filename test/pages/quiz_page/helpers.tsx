@@ -1,11 +1,47 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+/**
+ * This file contains small helper functions for QuizRunner test assertions.
+ */
+
+import { render, screen, within } from '@testing-library/react';
 import { FakeQuiz1Id, FakeQuizzes } from '../testdata';
 import { MemoryRouter } from 'react-router-dom';
 import AppRoutes from '../../../src/routes/AppRoutes';
 import '@testing-library/jest-dom';
 
 export const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
+
+export interface QuestionProgressRegion {
+  region: HTMLElement;
+  questionList: HTMLElement[];
+}
+
+export interface QuizRunnerRegions {
+  questionPrompt: HTMLElement;
+  questionProgress: QuestionProgressRegion;
+}
+
+/**
+ * Parses quiz runner screen and outputs regions as HTML elements
+ * with needed data:
+ * 1. Question prompt zone
+ * 2. Question progress zone with a list of questions to assert state of each question
+ */
+export function getQuizRunnerRegions(): QuizRunnerRegions {
+  const PromptRegion = screen.getByRole('region', {
+    name: /question prompt/i,
+  });
+  const ProgressRegion = screen.getByRole('region', {
+    name: /question progress/i,
+  });
+
+  return {
+    questionPrompt: PromptRegion,
+    questionProgress: {
+      region: ProgressRegion,
+      questionList: within(ProgressRegion).getAllByRole('listitem'),
+    },
+  };
+}
 
 /**
  * Find a radio button for a supplied answer choice
@@ -22,11 +58,6 @@ export function getRadioButton(
   return button;
 }
 
-function assertNoRadiosChecked() {
-  const radios = screen.getAllByRole('radio');
-  radios.forEach((r) => expect(r).not.toBeChecked());
-}
-
 export function renderQuizPage(quiz_id: string) {
   render(
     <MemoryRouter initialEntries={[`/quiz/${quiz_id}`]}>
@@ -35,30 +66,18 @@ export function renderQuizPage(quiz_id: string) {
   );
 }
 
-export async function assertQuizResultScreenHappyPath(expResultString: string) {
-  expect(await screen.findByText(expResultString)).toBeInTheDocument();
+export function assertNoRadiosChecked() {
+  const radios = screen.getAllByRole('radio');
+  radios.forEach((r) => expect(r).not.toBeChecked());
 }
 
-export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
-  for (let i = 0; i < testQuiz.questions.length; i++) {
-    const q = testQuiz.questions[i];
+export function extractIndicatorIconForProgressLi(
+  questionEl: HTMLElement
+): string {
+  const svg = questionEl.querySelector('svg');
+  expect(svg).not.toBeNull();
 
-    await screen.findByText(q.text);
-
-    // Current question number
-    expect(
-      await screen.findByText(
-        `Question #${i + 1} out of ${testQuiz.questions.length}`
-      )
-    );
-
-    assertNoRadiosChecked();
-    // Choose answer
-    const btn = getRadioButton(screen.getAllByRole('radio'), btnSelections[i]);
-    await userEvent.click(btn);
-
-    // Submit answer
-    const submit = screen.getByRole('button', { name: /submit answer/i });
-    await userEvent.click(submit);
-  }
+  const indicator = svg?.getAttribute('data-icon');
+  expect(indicator).not.toBeNull();
+  return indicator!; // tested by expect
 }

@@ -2,12 +2,9 @@ import { screen } from '@testing-library/react';
 import * as service from '../../../src/services/quizService';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import {
-  assertQuizResultScreenHappyPath,
-  assertQuizRunnerHappyPath,
-  renderQuizPage,
-  testQuiz,
-} from './helpers';
+import { renderQuizPage, testQuiz } from './helpers';
+import { assertQuizRunnerHappyPath } from './assertQuizRunner';
+import { assertQuizResultScreenHappyPath } from './assertResultsScreen';
 
 interface Case {
   name: string;
@@ -25,7 +22,7 @@ const cases: Case[] = [
   {
     name: 'some wrong, happy path',
     btnsToClick: testQuiz.questions.map(() => 1),
-    expectedResultString: `You got 1 out of ${testQuiz.questions.length} answers!`,
+    expectedResultString: `You got 2 out of ${testQuiz.questions.length} answers!`,
   },
 ];
 
