@@ -6,13 +6,21 @@
       {
         "id": "1",
         "text": "What is 2 + 2?",
-        "options": ["3", "4", "5"],
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
         "answerIndex": 1
       },
       {
         "id": "2",
         "text": "What is 1 + 2?",
-        "options": ["3", "4", "5"],
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
         "answerIndex": 0
       }
     ]
@@ -24,13 +32,41 @@
       {
         "id": "1",
         "text": "What is 10 + 10?",
-        "options": ["20", "1", "4"],
+        "options": [
+          "20",
+          "1",
+          "4"
+        ],
         "answerIndex": 0
       },
       {
         "id": "2",
         "text": "What is 1 + 2?",
-        "options": ["3", "4", "5"],
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "id": "3",
+        "text": "What is 1 + 1?",
+        "options": [
+          "3",
+          "2",
+          "5"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "id": "4",
+        "text": "What is 0 + 1?",
+        "options": [
+          "1",
+          "2",
+          "5"
+        ],
         "answerIndex": 0
       }
     ]

@@ -3,36 +3,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────
-   Light‑mode theme variables — higher contrast pastels
+   Light‑mode theme variables
 ───────────────────────────────────── */
 @theme {
   --color-primary: #6b8e6b;
-  /* Deeper sage green for clear emphasis */
-
   --color-secondary: #e2b89d;
-  /* Subtle apricot for soft accents */
-
   --color-tertiary: #7d6d85;
-  /* Darker dusty lavender for visibility */
-
-  --color-muted: #d1d1d1;
-  /* Soft gray for understated UI */
-
+  --color-muted: #b0b0b0;
   --color-surface: #f2efed;
-  /* Soft off‑white/taupe surface */
-
   --color-accent: #e27d7a;
-  /* Warm coral‑salmon for gentle pops */
-
   --color-content: #2c2c2c;
-  /* Dark charcoal for strong readability */
-
   --color-background: #d6d1c9;
-  /* Slightly deeper beige‑cream background */
+
+  --color-success: #8fc88f;
+  --color-error: #f28b82;
+
+  --color-navbar: #c2bfae
 }
 
 /* ─────────────────────────────────────
-   Dark‑mode theme variables — unchanged
+   Dark‑mode theme variables
 ───────────────────────────────────── */
 .dark {
   --color-primary: #618685;
@@ -43,4 +33,38 @@
   --color-accent: #ff8c94;
   --color-content: #ededed;
   --color-background: #1a1a2e;
+
+  --color-success: #4caf50;
+  --color-error: #e57373;
+
+  --color-navbar: #27273d
+}
+
+/* ─────────────────────────────────────
+   Utility classes for semantic colors
+───────────────────────────────────── */
+@layer utilities {
+  .bg-success {
+    background-color: var(--color-success) !important;
+  }
+
+  .bg-error {
+    background-color: var(--color-error) !important;
+  }
+
+  .text-success {
+    color: var(--color-success) !important;
+  }
+
+  .text-error {
+    color: var(--color-error) !important;
+  }
+
+  .border-success {
+    border-color: var(--color-success) !important;
+  }
+
+  .border-error {
+    border-color: var(--color-error) !important;
+  }
 }
