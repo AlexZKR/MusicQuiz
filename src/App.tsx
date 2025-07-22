@@ -19,7 +19,7 @@ function App() {
   return (
     <>
       <div className="bg-background text-primary flex min-h-screen flex-col transition-colors">
-        <header className="flex items-center justify-between p-4">
+        <header className="bg-navbar flex items-center justify-between p-4">
           <h1 className="text-accent text-2xl font-semibold">MusicQuiz</h1>
           <div className="flex space-x-2">
             {/* Theme toggle */}

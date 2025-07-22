@@ -9,6 +9,7 @@ export const FakeQuizzes = new Map([
       questions: [
         { id: '1', text: 'test text1', options: ['1', '2'], answerIndex: 0 },
         { id: '2', text: 'test text2', options: ['2', '1'], answerIndex: 1 },
+        { id: '3', text: 'test text3', options: ['2', '1'], answerIndex: 1 },
       ],
     },
   ],
