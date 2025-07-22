@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import type { Quiz, QuizId } from '../models/quiz';
+import type { QuestionId, Quiz, QuizId } from '../models/quiz';
 import { getQuiz } from '../services/quizService';
 import NotFoundPage from './NotFound';
 import QuizQuestion from '../components/quiz/QuizQuestion';
@@ -10,19 +10,34 @@ import ButtonLink from '../components/links/ButtonLink';
 import H3Heading from '../components/headings/H3Heading';
 import QuestionLiMember from '../components/quiz/QuestionLiMember';
 
+export type userAnswers = {
+  quizId: QuizId;
+  answers: { questionId: QuestionId; selected: number[] }[];
+};
+
 export default function QuizPage() {
   const { id } = useParams<{ id: QuizId }>();
 
   const [currQuestionIndex, SetCurrentQuestionIndex] = useState<number>(0);
-  const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [userAnswers, setUserAnswers] = useState<userAnswers>({
+    quizId: id!,
+    answers: [],
+  });
   const [isFinished, SetIsFinished] = useState<boolean>(false);
 
   try {
     const quiz = getQuiz(id!); // id is always defined, router routes to this page only if there is id
 
-    function handleAnswer(selectedIndex: number) {
-      const updatedAnswers = [...userAnswers, selectedIndex];
-      setUserAnswers(updatedAnswers);
+    function handleAnswer(selectedIndexes: number[]) {
+      const currQuestionid = quiz.questions[currQuestionIndex].id;
+
+      setUserAnswers((prev) => ({
+        ...prev,
+        answers: [
+          ...prev.answers,
+          { questionId: currQuestionid, selected: selectedIndexes },
+        ],
+      }));
 
       if (currQuestionIndex + 1 < quiz.questions.length) {
         SetCurrentQuestionIndex(currQuestionIndex + 1);
@@ -64,8 +79,8 @@ export default function QuizPage() {
 function QuizQuestionLayout(
   currQuestionIndex: number,
   quiz: Quiz,
-  handleAnswer: (selectedIndex: number) => void,
-  userAnswers: number[]
+  handleAnswer: (selectedIndexes: number[]) => void,
+  userAnswers: userAnswers
 ) {
   return (
     <>
@@ -95,7 +110,7 @@ function QuizQuestionLayout(
 
 type QuestionProgressListProps = {
   quiz: Quiz;
-  userAnswers: number[];
+  userAnswers: userAnswers;
   currQuestionIndex: number;
 };
 
@@ -132,10 +147,10 @@ function QuestionProgressList({
   );
 }
 
-function QuizResultsLayout(quiz: Quiz, userAnswers: number[]) {
+function QuizResultsLayout(quiz: Quiz, userAnswers: userAnswers) {
   function countCorrectAnswers(): number {
-    return userAnswers.filter(
-      (selected, i) => selected === quiz.questions[i].answerIndex
+    return userAnswers.answers.filter(
+      (selected, i) => selected.selected === quiz.questions[i].answerIndexes
     ).length;
   }
 

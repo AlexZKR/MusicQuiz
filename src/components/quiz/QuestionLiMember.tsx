@@ -8,16 +8,16 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 interface QuestionLiProps {
   q: Question;
-  userAnswerIndex: number;
+  userAnswerIndexes: number[];
   isAnswered: boolean;
 }
 
 export default function QuestionLiMember({
   q,
   isAnswered,
-  userAnswerIndex,
+  userAnswerIndexes,
 }: QuestionLiProps) {
-  const isRight = q.answerIndex === userAnswerIndex;
+  const isRight = q.answerIndexes === userAnswerIndexes;
   return (
     <div className="m-3 inline-flex items-center">
       {isAnswered

@@ -68,7 +68,7 @@ async function assertQuestionProgressScreen(
     // Assert green/red only for already answered questions. Others must be empty icons
     if (j < currQuestionNumber) {
       const isAnsweredRight =
-        testQuiz.questions[j].answerIndex === btnSelections[j];
+        testQuiz.questions[j].answerIndexes === btnSelections[j];
 
       if (isAnsweredRight) {
         expect(indicator).toEqual('circle-check');

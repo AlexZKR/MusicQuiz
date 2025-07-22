@@ -16,7 +16,7 @@ interface Case {
 const cases: Case[] = [
   {
     name: 'all correct, happy path',
-    btnsToClick: testQuiz.questions.map((q) => q.answerIndex), //click only correct buttons
+    btnsToClick: testQuiz.questions.map((q) => q.answerIndexes), //click only correct buttons
     expectedResultString: `You got ${testQuiz.questions.length} out of ${testQuiz.questions.length} answers!`,
   },
   {

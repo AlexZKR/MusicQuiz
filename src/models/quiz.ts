@@ -14,5 +14,5 @@ export interface Question {
   text: string;
   type: QuestionType;
   options: string[];
-  answerIndex: number;
+  answerIndexes: number[];
 }

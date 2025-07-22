@@ -5,12 +5,12 @@ import H3Heading from '../headings/H3Heading';
 
 interface QuizQuestionProps {
   q: Question;
-  onSubmitAnswer: (selectedIndex: number) => void;
+  onSubmitAnswer: (selectedIndexes: number[]) => void;
 }
 
 export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
   const validationSchema = Yup.object({
-    answer: Yup.string().required('Please select an option'),
+    answers: Yup.array(Yup.string()).required('Please select an option'),
   });
 
   return (
@@ -19,10 +19,10 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
 
       <Formik
         key={q.id}
-        initialValues={{ answer: '' }}
+        initialValues={{ answers: [''] }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          onSubmitAnswer(Number(values.answer));
+          onSubmitAnswer(values.answers.map((a) => Number(a)));
         }}
       >
         {() => (
@@ -65,7 +65,7 @@ function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
         >
           <Field
             type="radio"
-            name="answer"
+            name="answers"
             value={String(index)}
             className="form-radio text-content h-5 w-5"
           />
