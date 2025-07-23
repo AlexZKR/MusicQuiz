@@ -6,46 +6,23 @@
       {
         "id": "1",
         "text": "What is 2 + 2?",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
+        "options": ["3", "4", "5"],
         "type": "one-select",
-        "answerIndexes": [
-          1
-        ]
+        "answerIndexes": [1]
       },
       {
         "id": "2",
         "text": "What is 1 + 2?",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
+        "options": ["3", "4", "5"],
         "type": "one-select",
-        "answerIndexes": [
-          0
-        ]
+        "answerIndexes": [0]
       },
       {
         "id": "3",
         "text": "What are common divisors of 6?",
-        "options": [
-          "1",
-          "2",
-          "3",
-          "6",
-          "7"
-        ],
+        "options": ["1", "2", "3", "6", "7"],
         "type": "multi-select",
-        "answerIndexes": [
-          0,
-          1,
-          2,
-          3
-        ]
+        "answerIndexes": [0, 1, 2, 3]
       }
     ]
   },
@@ -56,55 +33,30 @@
       {
         "id": "1",
         "text": "What equals to 2?",
-        "options": [
-          "1+1",
-          "4/2",
-          "4"
-        ],
+        "options": ["1+1", "4/2", "4"],
         "type": "multi-select",
-        "answerIndexes": [
-          0,
-          1
-        ]
+        "answerIndexes": [0, 1]
       },
       {
         "id": "2",
         "text": "What is 1 + 2?",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
+        "options": ["3", "4", "5"],
         "type": "one-select",
-        "answerIndexes": [
-          0
-        ]
+        "answerIndexes": [0]
       },
       {
         "id": "3",
         "text": "What is 1 + 1?",
-        "options": [
-          "3",
-          "2",
-          "5"
-        ],
+        "options": ["3", "2", "5"],
         "type": "one-select",
-        "answerIndexes": [
-          1
-        ]
+        "answerIndexes": [1]
       },
       {
         "id": "4",
         "text": "What is 0 + 1?",
-        "options": [
-          "1",
-          "2",
-          "5"
-        ],
+        "options": ["1", "2", "5"],
         "type": "one-select",
-        "answerIndexes": [
-          0
-        ]
+        "answerIndexes": [0]
       }
     ]
   }
