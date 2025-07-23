@@ -10,6 +10,7 @@ import ButtonLink from '../components/links/ButtonLink';
 import H3Heading from '../components/headings/H3Heading';
 import QuestionLiMember from '../components/quiz/QuestionLiMember';
 import { arrayCompare } from '../utils/arrayComparison';
+import MultiSelectQuestion from '../components/quiz/MultiSelectQuestion';
 
 export type userAnswers = {
   quizId: QuizId;
@@ -90,6 +91,7 @@ function QuizQuestionLayout(
     if (q.type === 'one-select') {
       return <ChooseOneQuestion q={q} onSubmitAnswer={handleAnswer} />;
     }
+    return <MultiSelectQuestion q={q} onSubmitAnswer={handleAnswer} />;
   }
   return (
     <>
@@ -134,7 +136,8 @@ function QuestionProgressList({
         <ul>
           {quiz.questions.map((q, questionIndex) => {
             const isCurrent = questionIndex === currQuestionIndex;
-            const questionAnswers = userAnswers.answers.get(q.id)!;
+            const questionAnswers = userAnswers.answers.get(q.id) ?? [];
+            console.log(questionAnswers);
             return (
               <li
                 key={q.id}
