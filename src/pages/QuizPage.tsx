@@ -140,7 +140,6 @@ function QuestionProgressList({
           {quiz.questions.map((q, questionIndex) => {
             const isCurrent = questionIndex === currQuestionIndex;
             const questionAnswers = userAnswers.answers.get(q.id) ?? [];
-            console.log(questionAnswers);
             return (
               <li
                 key={q.id}
