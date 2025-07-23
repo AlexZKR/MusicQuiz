@@ -40,8 +40,8 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
     let btns: HTMLElement[] = [];
     if (currQ.type === 'one-select') {
       const radio = getRadioButton(
-      screen.getAllByRole('radio'),
-      btnSelections[i][0]
+        screen.getAllByRole('radio'),
+        btnSelections[i][0]
       );
       btns = [radio];
     } else if (currQ.type === 'multi-select') {
@@ -108,10 +108,17 @@ async function assertQuestionPromptScreen(
 
   // assert that no answers are chosen after render
   if (currQuestion.type === 'one-select') {
-  assertNoRadiosChecked();
+    assertNoRadiosChecked();
   } else if (currQuestion.type === 'multi-select') {
     assertNoCheckboxesChecked();
   }
+
+  // assert that screen contains question type badge
+  expect(
+    await screen.findByText(
+      currQuestion.type === 'one-select' ? 'select one' : 'select one or many'
+    )
+  );
 
   // assert the “Question #x of y” header appears somewhere on the page
   expect(

@@ -95,8 +95,11 @@ function QuizQuestionLayout(
   }
   return (
     <>
-      <H2HeadingSubtitle>
+      <H2HeadingSubtitle className="text-tertiary mb-1 text-center">
         Question #{currQuestionIndex + 1} out of {quiz.questions.length}
+      </H2HeadingSubtitle>
+      <H2HeadingSubtitle className="text-tertiary bg-badge mx-auto mb-4 block max-w-fit rounded-2xl px-3 text-center">
+        {q.type === 'one-select' ? 'select one' : 'select one or many'}
       </H2HeadingSubtitle>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Empty zone (spacer) */}

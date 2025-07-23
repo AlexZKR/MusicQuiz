@@ -19,6 +19,7 @@
   --color-error: #f28b82;
 
   --color-navbar: #c2bfae;
+  --color-badge: #DDD8D2;
 }
 
 /* ─────────────────────────────────────
@@ -38,6 +39,7 @@
   --color-error: #e57373;
 
   --color-navbar: #27273d;
+  --color-badge: #45465F;
 }
 
 /* ─────────────────────────────────────
@@ -66,5 +68,15 @@
 
   .border-error {
     border-color: var(--color-error) !important;
+  }
+
+  /* badge background */
+  .bg-badge {
+    background-color: var(--color-badge) !important;
+  }
+
+  /* optional: badge text color if you want it distinct */
+  .text-badge {
+    color: var(--color-content) !important;
   }
 }
