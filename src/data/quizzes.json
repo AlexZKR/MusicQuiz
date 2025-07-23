@@ -28,6 +28,24 @@
         "answerIndexes": [
           0
         ]
+      },
+      {
+        "id": "3",
+        "text": "What are common divisors of 6?",
+        "options": [
+          "1",
+          "2",
+          "3",
+          "6",
+          "7"
+        ],
+        "type": "multi-select",
+        "answerIndexes": [
+          0,
+          1,
+          2,
+          3
+        ]
       }
     ]
   },
