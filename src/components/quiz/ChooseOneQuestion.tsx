@@ -8,9 +8,12 @@ interface QuizQuestionProps {
   onSubmitAnswer: (selectedIndexes: number[]) => void;
 }
 
-export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
+export default function ChooseOneQuestion({
+  q,
+  onSubmitAnswer,
+}: QuizQuestionProps) {
   const validationSchema = Yup.object({
-    answers: Yup.array(Yup.string()).required('Please select an option'),
+    answer: Yup.string().required('Please select an option'),
   });
 
   return (
@@ -19,20 +22,20 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
 
       <Formik
         key={q.id}
-        initialValues={{ answers: [''] }}
+        initialValues={{ answer: '' }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          onSubmitAnswer(values.answers.map((a) => Number(a)));
+          onSubmitAnswer([Number(values.answer)]);
         }}
       >
         {() => (
           <Form className="mx-auto flex flex-col items-center">
-            <ChooseOneQuestion options={q.options}></ChooseOneQuestion>
+            <QuestionOptions options={q.options}></QuestionOptions>
 
             <ErrorMessage
               name="answer"
               component="div"
-              className="text-red-500"
+              className="text-error mt-5"
             />
             <button
               type="submit"
@@ -51,7 +54,7 @@ interface ChooseOneQuestionProps {
   options: string[];
 }
 
-function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
+function QuestionOptions({ options }: ChooseOneQuestionProps) {
   return (
     <div
       className="flex flex-wrap justify-center gap-4"
@@ -65,7 +68,7 @@ function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
         >
           <Field
             type="radio"
-            name="answers"
+            name="answer"
             value={String(index)}
             className="form-radio text-content h-5 w-5"
           />

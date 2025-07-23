@@ -6,18 +6,22 @@ import {
   faCircleCheck,
   type IconDefinition,
 } from '@fortawesome/free-regular-svg-icons';
+import { arrayCompare } from '../../utils/arrayComparison';
 interface QuestionLiProps {
   q: Question;
-  userAnswerIndexes: number[];
+  userAnswer: number[];
   isAnswered: boolean;
 }
 
 export default function QuestionLiMember({
   q,
   isAnswered,
-  userAnswerIndexes,
+  userAnswer,
 }: QuestionLiProps) {
-  const isRight = q.answerIndexes === userAnswerIndexes;
+  let isRight = false;
+  if (isAnswered) {
+    isRight = arrayCompare(q.answerIndexes, userAnswer);
+  }
   return (
     <div className="m-3 inline-flex items-center">
       {isAnswered

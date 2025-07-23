@@ -9,7 +9,7 @@ import { assertQuizResultScreenHappyPath } from './assertResultsScreen';
 interface Case {
   name: string;
 
-  btnsToClick: number[];
+  btnsToClick: number[][]; // array of buttons for every question
   expectedResultString: string;
 }
 
@@ -21,7 +21,7 @@ const cases: Case[] = [
   },
   {
     name: 'some wrong, happy path',
-    btnsToClick: testQuiz.questions.map(() => 1),
+    btnsToClick: testQuiz.questions.map(() => [1]),
     expectedResultString: `You got 2 out of ${testQuiz.questions.length} answers!`,
   },
 ];

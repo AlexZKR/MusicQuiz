@@ -5,7 +5,7 @@ export const QuestionSchema = z.object({
   text: z.string(),
   type: z.enum(['one-select', 'multi-select']),
   options: z.array(z.string()),
-  answerIndex: z.number(),
+  answerIndexes: z.array(z.number()),
 });
 
 export const QuizSchema = z.object({

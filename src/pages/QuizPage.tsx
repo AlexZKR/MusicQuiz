@@ -2,17 +2,18 @@ import { useParams } from 'react-router-dom';
 import type { QuestionId, Quiz, QuizId } from '../models/quiz';
 import { getQuiz } from '../services/quizService';
 import NotFoundPage from './NotFound';
-import QuizQuestion from '../components/quiz/QuizQuestion';
+import ChooseOneQuestion from '../components/quiz/ChooseOneQuestion';
 import { useState } from 'react';
 import H1Heading from '../components/headings/H1Heading';
 import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
 import ButtonLink from '../components/links/ButtonLink';
 import H3Heading from '../components/headings/H3Heading';
 import QuestionLiMember from '../components/quiz/QuestionLiMember';
+import { arrayCompare } from '../utils/arrayComparison';
 
 export type userAnswers = {
   quizId: QuizId;
-  answers: { questionId: QuestionId; selected: number[] }[];
+  answers: Map<QuestionId, number[]>;
 };
 
 export default function QuizPage() {
@@ -20,24 +21,26 @@ export default function QuizPage() {
 
   const [currQuestionIndex, SetCurrentQuestionIndex] = useState<number>(0);
   const [userAnswers, setUserAnswers] = useState<userAnswers>({
-    quizId: id!,
-    answers: [],
+    quizId: id!, // id is always defined, router routes to this page only if there is id
+    answers: new Map<QuestionId, number[]>(),
   });
   const [isFinished, SetIsFinished] = useState<boolean>(false);
 
   try {
-    const quiz = getQuiz(id!); // id is always defined, router routes to this page only if there is id
+    const quiz = getQuiz(id!);
 
     function handleAnswer(selectedIndexes: number[]) {
       const currQuestionid = quiz.questions[currQuestionIndex].id;
 
-      setUserAnswers((prev) => ({
-        ...prev,
-        answers: [
-          ...prev.answers,
-          { questionId: currQuestionid, selected: selectedIndexes },
-        ],
-      }));
+      setUserAnswers((prev) => {
+        const nextMap = new Map(prev.answers);
+        nextMap.set(currQuestionid, selectedIndexes);
+
+        return {
+          ...prev,
+          answers: nextMap,
+        };
+      });
 
       if (currQuestionIndex + 1 < quiz.questions.length) {
         SetCurrentQuestionIndex(currQuestionIndex + 1);
@@ -82,6 +85,12 @@ function QuizQuestionLayout(
   handleAnswer: (selectedIndexes: number[]) => void,
   userAnswers: userAnswers
 ) {
+  const q = quiz.questions[currQuestionIndex];
+  function getQuestionType() {
+    if (q.type === 'one-select') {
+      return <ChooseOneQuestion q={q} onSubmitAnswer={handleAnswer} />;
+    }
+  }
   return (
     <>
       <H2HeadingSubtitle>
@@ -91,10 +100,7 @@ function QuizQuestionLayout(
         {/* Empty zone (spacer) */}
         <div></div>
         <section role="region" aria-label="Question prompt">
-          <QuizQuestion
-            q={quiz.questions[currQuestionIndex]}
-            onSubmitAnswer={handleAnswer}
-          />
+          {getQuestionType()}
         </section>
         <section role="region" aria-label="Question progress">
           <QuestionProgressList
@@ -128,6 +134,7 @@ function QuestionProgressList({
         <ul>
           {quiz.questions.map((q, questionIndex) => {
             const isCurrent = questionIndex === currQuestionIndex;
+            const questionAnswers = userAnswers.answers.get(q.id)!;
             return (
               <li
                 key={q.id}
@@ -135,7 +142,7 @@ function QuestionProgressList({
               >
                 <QuestionLiMember
                   q={q}
-                  userAnswerIndex={userAnswers[questionIndex]}
+                  userAnswer={questionAnswers}
                   isAnswered={questionIndex < currQuestionIndex}
                 />
               </li>
@@ -149,9 +156,13 @@ function QuestionProgressList({
 
 function QuizResultsLayout(quiz: Quiz, userAnswers: userAnswers) {
   function countCorrectAnswers(): number {
-    return userAnswers.answers.filter(
-      (selected, i) => selected.selected === quiz.questions[i].answerIndexes
-    ).length;
+    let results = 0;
+    for (const q of quiz.questions) {
+      if (arrayCompare(userAnswers.answers.get(q.id)!, q.answerIndexes)) {
+        results = results + 1;
+      }
+    }
+    return results;
   }
 
   return (

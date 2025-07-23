@@ -10,6 +10,7 @@ import {
   testQuiz,
   type QuizRunnerRegions,
 } from './helpers';
+import { arrayCompare } from '../../../src/utils/arrayComparison';
 
 /**
  * Assert quiz runner happy path by dividing screen into regions and asserting needed content in each.
@@ -17,7 +18,7 @@ import {
  * 1. Question prompt (in the middle of the screen, where question text and option selection is held);
  * 2. Question progress (to the right side, where a list of questions is selected).
  */
-export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
+export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
   // Assert that question progress list is filled with needed number of questions
   let regions = getQuizRunnerRegions();
   expect(
@@ -34,7 +35,10 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
     assertQuestionProgressScreen(regions, i, btnSelections);
 
     // Choose answer
-    const btn = getRadioButton(screen.getAllByRole('radio'), btnSelections[i]);
+    const btn = getRadioButton(
+      screen.getAllByRole('radio'),
+      btnSelections[i][0]
+    ); //only one radio btn can be clicked
     await userEvent.click(btn);
 
     // Submit answer
@@ -46,7 +50,7 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
 async function assertQuestionProgressScreen(
   regions: QuizRunnerRegions,
   currQuestionNumber: number,
-  btnSelections: number[]
+  btnSelections: number[][]
 ) {
   const currQuestionLi =
     regions.questionProgress.questionList[currQuestionNumber];
@@ -67,8 +71,10 @@ async function assertQuestionProgressScreen(
 
     // Assert green/red only for already answered questions. Others must be empty icons
     if (j < currQuestionNumber) {
-      const isAnsweredRight =
-        testQuiz.questions[j].answerIndexes === btnSelections[j];
+      const isAnsweredRight = arrayCompare(
+        testQuiz.questions[j].answerIndexes,
+        btnSelections[j]
+      );
 
       if (isAnsweredRight) {
         expect(indicator).toEqual('circle-check');
