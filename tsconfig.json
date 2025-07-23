@@ -5,7 +5,8 @@
     // these may already be in tsconfig.app.json, but ensure they're here
     "jsx": "react-jsx", // enable TSX
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
   "include": [
     "src", // your source files

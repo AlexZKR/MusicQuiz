@@ -2,30 +2,27 @@ import { screen } from '@testing-library/react';
 import * as service from '../../../src/services/quizService';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import {
-  assertQuizResultScreenHappyPath,
-  assertQuizRunnerHappyPath,
-  renderQuizPage,
-  testQuiz,
-} from './helpers';
+import { renderQuizPage, testQuiz } from './helpers';
+import { assertQuizRunnerHappyPath } from './assertQuizRunner';
+import { assertQuizResultScreenHappyPath } from './assertResultsScreen';
 
 interface Case {
   name: string;
 
-  btnsToClick: number[];
+  btnsToClick: number[][]; // array of buttons for every question
   expectedResultString: string;
 }
 
 const cases: Case[] = [
   {
     name: 'all correct, happy path',
-    btnsToClick: testQuiz.questions.map((q) => q.answerIndex), //click only correct buttons
+    btnsToClick: testQuiz.questions.map((q) => q.answerIndexes), //click only correct buttons
     expectedResultString: `You got ${testQuiz.questions.length} out of ${testQuiz.questions.length} answers!`,
   },
   {
     name: 'some wrong, happy path',
-    btnsToClick: testQuiz.questions.map(() => 1),
-    expectedResultString: `You got 1 out of ${testQuiz.questions.length} answers!`,
+    btnsToClick: testQuiz.questions.map(() => [1]),
+    expectedResultString: `You got 2 out of ${testQuiz.questions.length} answers!`,
   },
 ];
 

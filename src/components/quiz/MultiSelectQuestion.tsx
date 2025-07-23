@@ -5,12 +5,15 @@ import H3Heading from '../headings/H3Heading';
 
 interface QuizQuestionProps {
   q: Question;
-  onSubmitAnswer: (selectedIndex: number) => void;
+  onSubmitAnswer: (selectedIndexes: number[]) => void;
 }
 
-export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
+export default function MultiSelectQuestion({
+  q,
+  onSubmitAnswer,
+}: QuizQuestionProps) {
   const validationSchema = Yup.object({
-    answer: Yup.string().required('Please select an option'),
+    answers: Yup.array().of(Yup.string()).min(1, 'Please select an option'),
   });
 
   return (
@@ -18,20 +21,21 @@ export default function QuizQuestion({ q, onSubmitAnswer }: QuizQuestionProps) {
       <H3Heading>{q.text}</H3Heading>
 
       <Formik
-        initialValues={{ answer: '' }}
+        key={q.id}
+        initialValues={{ answers: [] as string[] }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          onSubmitAnswer(Number(values.answer));
+          onSubmitAnswer(values.answers.map((i) => Number(i)));
         }}
       >
         {() => (
           <Form className="mx-auto flex flex-col items-center">
-            <ChooseOneQuestion options={q.options}></ChooseOneQuestion>
+            <QuestionOptions options={q.options}></QuestionOptions>
 
             <ErrorMessage
-              name="answer"
+              name="answers"
               component="div"
-              className="text-red-500"
+              className="text-error mt-5"
             />
             <button
               type="submit"
@@ -50,7 +54,7 @@ interface ChooseOneQuestionProps {
   options: string[];
 }
 
-function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
+function QuestionOptions({ options }: ChooseOneQuestionProps) {
   return (
     <div
       className="flex flex-wrap justify-center gap-4"
@@ -63,8 +67,8 @@ function ChooseOneQuestion({ options }: ChooseOneQuestionProps) {
           className="bg-surface hover:bg-tertiary flex cursor-pointer items-center space-x-2 rounded px-4 py-2 transition"
         >
           <Field
-            type="radio"
-            name="answer"
+            type="checkbox"
+            name="answers"
             value={String(index)}
             className="form-radio text-content h-5 w-5"
           />
