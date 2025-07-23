@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import AppRoutes from './routes/AppRoutes';
+import StyledLink from './components/links/StyledLink';
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(
@@ -20,7 +21,14 @@ function App() {
     <>
       <div className="bg-background text-primary flex min-h-screen flex-col transition-colors">
         <header className="bg-navbar flex items-center justify-between p-4">
-          <h1 className="text-accent text-2xl font-semibold">MusicQuiz</h1>
+          <h1 className="text-content text-2xl font-semibold">
+            <StyledLink
+              className="hover:text-accent rounded px-3 py-1 font-semibold transition"
+              to={'/'}
+            >
+              MusicQuiz
+            </StyledLink>
+          </h1>
           <div className="flex space-x-2">
             {/* Theme toggle */}
             <button

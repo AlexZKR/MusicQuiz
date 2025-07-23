@@ -6,7 +6,7 @@ import ChooseOneQuestion from '../components/quiz/ChooseOneQuestion';
 import { useState } from 'react';
 import H1Heading from '../components/headings/H1Heading';
 import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
-import ButtonLink from '../components/links/ButtonLink';
+import StyledLink from '../components/links/StyledLink';
 import H3Heading from '../components/headings/H3Heading';
 import QuestionLiMember from '../components/quiz/QuestionLiMember';
 import { arrayCompare } from '../utils/arrayComparison';
@@ -65,12 +65,12 @@ export default function QuizPage() {
                 )
               : QuizResultsLayout(quiz, userAnswers)}
 
-            <ButtonLink
+            <StyledLink
               className="hover:bg-surface text-content mx-auto mt-4 inline-block rounded p-3 font-semibold transition"
               to="/"
             >
               Go back to home page
-            </ButtonLink>
+            </StyledLink>
           </div>
         </div>
       </>
@@ -140,7 +140,6 @@ function QuestionProgressList({
           {quiz.questions.map((q, questionIndex) => {
             const isCurrent = questionIndex === currQuestionIndex;
             const questionAnswers = userAnswers.answers.get(q.id) ?? [];
-            console.log(questionAnswers);
             return (
               <li
                 key={q.id}

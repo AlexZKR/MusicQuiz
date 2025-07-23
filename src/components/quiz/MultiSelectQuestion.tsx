@@ -25,7 +25,6 @@ export default function MultiSelectQuestion({
         initialValues={{ answers: [] as string[] }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log(`submit - ${values.answers[0]}`);
           onSubmitAnswer(values.answers.map((i) => Number(i)));
         }}
       >
