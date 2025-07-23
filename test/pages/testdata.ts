@@ -13,8 +13,8 @@ export const FakeQuizzes: Map<QuizId, Quiz> = new Map([
           id: '1',
           text: 'test text1',
           options: ['1', '2'],
-          type: 'one-select',
-          answerIndexes: [0],
+          type: 'multi-select',
+          answerIndexes: [0, 1],
         },
         {
           id: '2',

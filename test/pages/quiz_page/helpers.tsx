@@ -44,6 +44,23 @@ export function getQuizRunnerRegions(): QuizRunnerRegions {
 }
 
 /**
+ * Find checkbox buttons for supplied answer choices
+ * @param {any} btns list of checkboxes buttons (answer options)
+ * @param {any} btnValue answer choices
+ * @returns {HTMLElement} array of checkbox buttons with supplied value attributes
+ */
+export function getCheckboxes(
+  checkboxes: HTMLElement[],
+  toCheck: number[]
+): HTMLElement[] {
+  const btns = checkboxes.filter((r) =>
+    toCheck.includes(Number(r.getAttribute('value')))
+  );
+  if (!btns) throw new Error(`Could not find checkboxes for values=${toCheck}`);
+  return btns;
+}
+
+/**
  * Find a radio button for a supplied answer choice
  * @param {any} btns list of radio buttons (answer options)
  * @param {any} btnValue answer choice
@@ -69,6 +86,11 @@ export function renderQuizPage(quiz_id: string) {
 export function assertNoRadiosChecked() {
   const radios = screen.getAllByRole('radio');
   radios.forEach((r) => expect(r).not.toBeChecked());
+}
+
+export function assertNoCheckboxesChecked() {
+  const checkboxes = screen.getAllByRole('checkbox');
+  checkboxes.forEach((c) => expect(c).not.toBeChecked());
 }
 
 export function extractIndicatorIconForProgressLi(

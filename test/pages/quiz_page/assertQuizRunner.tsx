@@ -3,8 +3,10 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import type { Question } from '../../../src/models/quiz';
 import {
+  assertNoCheckboxesChecked,
   assertNoRadiosChecked,
   extractIndicatorIconForProgressLi,
+  getCheckboxes,
   getQuizRunnerRegions,
   getRadioButton,
   testQuiz,
@@ -35,11 +37,20 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
     assertQuestionProgressScreen(regions, i, btnSelections);
 
     // Choose answer
-    const btn = getRadioButton(
+    let btns: HTMLElement[] = [];
+    if (currQ.type === 'one-select') {
+      const radio = getRadioButton(
       screen.getAllByRole('radio'),
       btnSelections[i][0]
-    ); //only one radio btn can be clicked
-    await userEvent.click(btn);
+      );
+      btns = [radio];
+    } else if (currQ.type === 'multi-select') {
+      btns = getCheckboxes(screen.getAllByRole('checkbox'), btnSelections[i]);
+    }
+
+    // Click chosen buttons
+    if (btns.length === 0) throw new Error("Question choices weren't chosen!");
+    btns.forEach(async (b) => await userEvent.click(b));
 
     // Submit answer
     const submit = screen.getByRole('button', { name: /submit answer/i });
@@ -95,7 +106,12 @@ async function assertQuestionPromptScreen(
   // assert that the prompt region contains the current question’s text
   expect(regions.questionPrompt).toHaveTextContent(currQuestion.text);
 
+  // assert that no answers are chosen after render
+  if (currQuestion.type === 'one-select') {
   assertNoRadiosChecked();
+  } else if (currQuestion.type === 'multi-select') {
+    assertNoCheckboxesChecked();
+  }
 
   // assert the “Question #x of y” header appears somewhere on the page
   expect(
