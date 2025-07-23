@@ -21,9 +21,6 @@ export default function QuestionLiMember({
   let isRight = false;
   if (!arrayCompare(userAnswer, [])) {
     isRight = arrayCompare(q.answerIndexes, userAnswer);
-    console.log(
-      `${q.id} - right: ${q.answerIndexes} - ${userAnswer}; result: ${isRight}`
-    );
   }
   return (
     <div className="m-3 inline-flex items-center">
