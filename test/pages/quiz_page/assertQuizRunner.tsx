@@ -3,13 +3,16 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import type { Question } from '../../../src/models/quiz';
 import {
+  assertNoCheckboxesChecked,
   assertNoRadiosChecked,
   extractIndicatorIconForProgressLi,
+  getCheckboxes,
   getQuizRunnerRegions,
   getRadioButton,
   testQuiz,
   type QuizRunnerRegions,
 } from './helpers';
+import { arrayCompare } from '../../../src/utils/arrayComparison';
 
 /**
  * Assert quiz runner happy path by dividing screen into regions and asserting needed content in each.
@@ -17,7 +20,7 @@ import {
  * 1. Question prompt (in the middle of the screen, where question text and option selection is held);
  * 2. Question progress (to the right side, where a list of questions is selected).
  */
-export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
+export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
   // Assert that question progress list is filled with needed number of questions
   let regions = getQuizRunnerRegions();
   expect(
@@ -34,8 +37,20 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
     assertQuestionProgressScreen(regions, i, btnSelections);
 
     // Choose answer
-    const btn = getRadioButton(screen.getAllByRole('radio'), btnSelections[i]);
-    await userEvent.click(btn);
+    let btns: HTMLElement[] = [];
+    if (currQ.type === 'one-select') {
+      const radio = getRadioButton(
+        screen.getAllByRole('radio'),
+        btnSelections[i][0]
+      );
+      btns = [radio];
+    } else if (currQ.type === 'multi-select') {
+      btns = getCheckboxes(screen.getAllByRole('checkbox'), btnSelections[i]);
+    }
+
+    // Click chosen buttons
+    if (btns.length === 0) throw new Error("Question choices weren't chosen!");
+    btns.forEach(async (b) => await userEvent.click(b));
 
     // Submit answer
     const submit = screen.getByRole('button', { name: /submit answer/i });
@@ -46,7 +61,7 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[]) {
 async function assertQuestionProgressScreen(
   regions: QuizRunnerRegions,
   currQuestionNumber: number,
-  btnSelections: number[]
+  btnSelections: number[][]
 ) {
   const currQuestionLi =
     regions.questionProgress.questionList[currQuestionNumber];
@@ -67,8 +82,10 @@ async function assertQuestionProgressScreen(
 
     // Assert green/red only for already answered questions. Others must be empty icons
     if (j < currQuestionNumber) {
-      const isAnsweredRight =
-        testQuiz.questions[j].answerIndex === btnSelections[j];
+      const isAnsweredRight = arrayCompare(
+        testQuiz.questions[j].answerIndexes,
+        btnSelections[j]
+      );
 
       if (isAnsweredRight) {
         expect(indicator).toEqual('circle-check');
@@ -89,7 +106,19 @@ async function assertQuestionPromptScreen(
   // assert that the prompt region contains the current question’s text
   expect(regions.questionPrompt).toHaveTextContent(currQuestion.text);
 
-  assertNoRadiosChecked();
+  // assert that no answers are chosen after render
+  if (currQuestion.type === 'one-select') {
+    assertNoRadiosChecked();
+  } else if (currQuestion.type === 'multi-select') {
+    assertNoCheckboxesChecked();
+  }
+
+  // assert that screen contains question type badge
+  expect(
+    await screen.findByText(
+      currQuestion.type === 'one-select' ? 'select one' : 'select one or many'
+    )
+  );
 
   // assert the “Question #x of y” header appears somewhere on the page
   expect(

@@ -1,5 +1,4 @@
 export type QuizId = string;
-export type QuestionId = string;
 
 export interface Quiz {
   id: QuizId;
@@ -7,9 +6,13 @@ export interface Quiz {
   questions: Question[];
 }
 
+export type QuestionId = string;
+export type QuestionType = 'one-select' | 'multi-select';
+
 export interface Question {
   id: QuestionId;
   text: string;
+  type: QuestionType;
   options: string[];
-  answerIndex: number;
+  answerIndexes: number[];
 }
