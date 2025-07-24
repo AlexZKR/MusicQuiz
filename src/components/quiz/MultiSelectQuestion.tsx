@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import type { Question } from '../../models/quiz';
-import H3Heading from '../headings/H3Heading';
+import H3Heading from '../atoms/headings/H3Heading';
 
 interface QuizQuestionProps {
   q: Question;

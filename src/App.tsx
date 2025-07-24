@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import AppRoutes from './routes/AppRoutes';
-import StyledLink from './components/links/StyledLink';
+import StyledLink from './components/atoms/links/StyledLink';
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(

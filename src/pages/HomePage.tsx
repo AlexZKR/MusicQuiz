@@ -1,5 +1,5 @@
-import H1Heading from '../components/headings/H1Heading';
-import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
+import H1Heading from '../components/atoms/headings/H1Heading';
+import H2HeadingSubtitle from '../components/atoms/headings/H2HeadingSubtitle';
 import QuizLiMember from '../components/quiz/QuizLiMember';
 import { getQuizzes } from '../services/quizService';
 

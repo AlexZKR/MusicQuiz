@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-export interface DefaultComponentProps {
+export interface DefaultAtomProps {
   children: ReactNode;
   className?: string;
 }
-export interface LinkProps extends DefaultComponentProps {
+export interface LinkProps extends DefaultAtomProps {
   to: string;
 }

@@ -4,13 +4,13 @@ import { getQuiz } from '../services/quizService';
 import NotFoundPage from './NotFound';
 import ChooseOneQuestion from '../components/quiz/ChooseOneQuestion';
 import { useState } from 'react';
-import H1Heading from '../components/headings/H1Heading';
-import H2HeadingSubtitle from '../components/headings/H2HeadingSubtitle';
-import StyledLink from '../components/links/StyledLink';
-import H3Heading from '../components/headings/H3Heading';
 import QuestionLiMember from '../components/quiz/QuestionLiMember';
 import { arrayCompare } from '../utils/arrayComparison';
 import MultiSelectQuestion from '../components/quiz/MultiSelectQuestion';
+import H1Heading from '../components/atoms/headings/H1Heading';
+import StyledLink from '../components/atoms/links/StyledLink';
+import H2HeadingSubtitle from '../components/atoms/headings/H2HeadingSubtitle';
+import H3Heading from '../components/atoms/headings/H3Heading';
 
 export type userAnswers = {
   quizId: QuizId;
