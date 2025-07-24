@@ -44,7 +44,11 @@ describe('QuizPage happy paths', () => {
       renderQuizPage(testQuiz.id);
 
       await assertQuizRunnerHappyPath(selections);
-      await assertQuizResultScreenHappyPath(expectedResult);
+      await assertQuizResultScreenHappyPath(
+        expectedResult,
+        testQuiz,
+        selections
+      );
     }
   );
 });
