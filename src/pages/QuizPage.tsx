@@ -176,6 +176,17 @@ function QuizResultsLayout(quiz: Quiz, userAnswers: userAnswers) {
       <H2HeadingSubtitle>
         You got {countCorrectAnswers()} out of {quiz.questions.length} answers!
       </H2HeadingSubtitle>
+      <section
+        role="region"
+        aria-label="Question progress"
+        className="mx-auto max-w-xl min-w-fit"
+      >
+        <QuestionProgressList
+          quiz={quiz}
+          userAnswers={userAnswers}
+          currQuestionIndex={quiz.questions.length}
+        />
+      </section>
     </>
   );
 }
