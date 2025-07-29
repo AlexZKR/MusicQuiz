@@ -4,14 +4,13 @@ import { getQuiz } from '../services/quizService';
 import NotFoundPage from './NotFound';
 import ChooseOneQuestion from '../components/molecules/chooseOneQuestion/ChooseOneQuestion';
 import { useState } from 'react';
-import { arrayCompare } from '../utils/arrayComparison';
 
 import H1Heading from '../components/atoms/headings/H1Heading';
 import StyledLink from '../components/atoms/links/StyledLink';
 import H2HeadingSubtitle from '../components/atoms/headings/H2HeadingSubtitle';
-import H3Heading from '../components/atoms/headings/H3Heading';
 import MultiSelectQuestion from '../components/molecules/chooseMultiQuestion/MultiSelectQuestion';
 import { QuestionProgressList } from '../components/organisms/QuestionProgressList';
+import { QuizResultsLayout } from '../components/organisms/QuizResultsLayout';
 
 export type userAnswers = {
   quizId: QuizId;
@@ -116,38 +115,6 @@ function QuizQuestionLayout(
           />
         </section>
       </div>
-    </>
-  );
-}
-
-function QuizResultsLayout(quiz: Quiz, userAnswers: userAnswers) {
-  function countCorrectAnswers(): number {
-    let results = 0;
-    for (const q of quiz.questions) {
-      if (arrayCompare(userAnswers.answers.get(q.id)!, q.answerIndexes)) {
-        results = results + 1;
-      }
-    }
-    return results;
-  }
-
-  return (
-    <>
-      <H3Heading>Quiz Complete!</H3Heading>
-      <H2HeadingSubtitle>
-        You got {countCorrectAnswers()} out of {quiz.questions.length} answers!
-      </H2HeadingSubtitle>
-      <section
-        role="region"
-        aria-label="Question progress"
-        className="mx-auto max-w-xl min-w-fit"
-      >
-        <QuestionProgressList
-          quiz={quiz}
-          userAnswers={userAnswers}
-          currQuestionIndex={quiz.questions.length}
-        />
-      </section>
     </>
   );
 }
