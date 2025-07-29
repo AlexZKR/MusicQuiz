@@ -3,6 +3,7 @@ import type { userAnswers } from '../../pages/QuizPage';
 import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
 import MultiSelectQuestion from '../molecules/chooseMultiQuestion/MultiSelectQuestion';
 import ChooseOneQuestion from '../molecules/chooseOneQuestion/ChooseOneQuestion';
+import { CurrentQuestionHeading } from '../molecules/headings/CurrentQuestion';
 import { QuestionProgressList } from '../organisms/QuestionProgressList';
 
 export function QuizQuestionTemplate(
@@ -20,9 +21,10 @@ export function QuizQuestionTemplate(
   }
   return (
     <>
-      <H2HeadingSubtitle className="text-tertiary mb-1 text-center">
-        Question #{currQuestionIndex + 1} out of {quiz.questions.length}
-      </H2HeadingSubtitle>
+      <CurrentQuestionHeading
+        currentQuestion={currQuestionIndex + 1}
+        totalQuestions={quiz.questions.length}
+      />
       <H2HeadingSubtitle className="text-tertiary bg-badge mx-auto mb-4 block max-w-fit rounded-2xl px-3 text-center">
         {q.type === 'one-select' ? 'select one' : 'select one or many'}
       </H2HeadingSubtitle>
