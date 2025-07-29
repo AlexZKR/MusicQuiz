@@ -6,6 +6,9 @@ interface QuizProps {
   q: Quiz;
 }
 
+/**
+ * Used on the home page to display quizzes.
+ */
 export default function QuizLiMember({ q }: QuizProps) {
   return (
     <>

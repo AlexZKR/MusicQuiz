@@ -12,7 +12,9 @@ interface QuestionLiProps {
   userAnswer: number[];
   isAnswered: boolean;
 }
-
+/**
+ * Used in question progress list
+ */
 export default function QuestionLiMember({
   q,
   isAnswered,
