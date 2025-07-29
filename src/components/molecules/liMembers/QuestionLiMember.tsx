@@ -1,4 +1,3 @@
-import type { Question } from '../../models/quiz';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircle,
@@ -6,7 +5,9 @@ import {
   faCircleCheck,
   type IconDefinition,
 } from '@fortawesome/free-regular-svg-icons';
-import { arrayCompare } from '../../utils/arrayComparison';
+import type { Question } from '../../../models/quiz';
+import { arrayCompare } from '../../../utils/arrayComparison';
+
 interface QuestionLiProps {
   q: Question;
   userAnswer: number[];

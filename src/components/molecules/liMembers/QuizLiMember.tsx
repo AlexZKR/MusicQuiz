@@ -1,6 +1,6 @@
-import type { Quiz } from '../../models/quiz';
-import { quizPath } from '../../routes/routeUtils';
-import StyledLink from '../atoms/links/StyledLink';
+import type { Quiz } from '../../../models/quiz';
+import { quizPath } from '../../../routes/routeUtils';
+import StyledLink from '../../atoms/links/StyledLink';
 
 interface QuizProps {
   q: Quiz;
