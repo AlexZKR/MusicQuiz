@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 import H1Heading from '../components/atoms/headings/H1Heading';
 import StyledLink from '../components/atoms/links/StyledLink';
-import { QuizResultsLayout } from '../components/organisms/QuizResultsLayout';
-import { QuizQuestionLayout } from '../components/organisms/QuizQuestionLayout';
+import { QuizQuestionTemplate } from '../components/templates/QuizQuestionTemplate';
+import { QuizResultsTemplate } from '../components/templates/QuizResultsTemplate';
 
 export type userAnswers = {
   quizId: QuizId;
@@ -54,13 +54,13 @@ export default function QuizPage() {
             <H1Heading>Quiz: {quiz.title}</H1Heading>
 
             {!isFinished
-              ? QuizQuestionLayout(
+              ? QuizQuestionTemplate(
                   currQuestionIndex,
                   quiz,
                   handleAnswer,
                   userAnswers
                 )
-              : QuizResultsLayout(quiz, userAnswers)}
+              : QuizResultsTemplate(quiz, userAnswers)}
 
             <StyledLink
               className="hover:bg-surface text-content mx-auto mt-4 inline-block rounded p-3 font-semibold transition"

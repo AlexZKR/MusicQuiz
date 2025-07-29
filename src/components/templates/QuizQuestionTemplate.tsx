@@ -3,8 +3,9 @@ import type { userAnswers } from '../../pages/QuizPage';
 import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
 import MultiSelectQuestion from '../molecules/chooseMultiQuestion/MultiSelectQuestion';
 import ChooseOneQuestion from '../molecules/chooseOneQuestion/ChooseOneQuestion';
-import { QuestionProgressList } from './QuestionProgressList';
-export function QuizQuestionLayout(
+import { QuestionProgressList } from '../organisms/QuestionProgressList';
+
+export function QuizQuestionTemplate(
   currQuestionIndex: number,
   quiz: Quiz,
   handleAnswer: (selectedIndexes: number[]) => void,
