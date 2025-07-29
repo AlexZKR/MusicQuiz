@@ -53,14 +53,16 @@ export default function QuizPage() {
           <div className="flex-grow px-4 py-6">
             <H1Heading>Quiz: {quiz.title}</H1Heading>
 
-            {!isFinished
-              ? QuizQuestionTemplate(
-                  currQuestionIndex,
-                  quiz,
-                  handleAnswer,
-                  userAnswers
-                )
-              : QuizResultsTemplate(quiz, userAnswers)}
+            {!isFinished ? (
+              <QuizQuestionTemplate
+                currQuestionIndex={currQuestionIndex}
+                quiz={quiz}
+                handleAnswer={handleAnswer}
+                userAnswers={userAnswers}
+              />
+            ) : (
+              <QuizResultsTemplate quiz={quiz} userAnswers={userAnswers} />
+            )}
 
             <StyledLink
               className="hover:bg-surface text-content mx-auto mt-4 inline-block rounded p-3 font-semibold transition"

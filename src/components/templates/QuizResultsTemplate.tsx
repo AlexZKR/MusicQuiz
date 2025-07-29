@@ -5,7 +5,15 @@ import type { userAnswers } from '../../pages/QuizPage';
 import { QuestionProgressList } from '../organisms/QuestionProgressList';
 import { QuizSummaryLine } from '../organisms/QuizSummaryLine';
 
-export function QuizResultsTemplate(quiz: Quiz, userAnswers: userAnswers) {
+interface QuizResultsTemplateProps {
+  quiz: Quiz;
+  userAnswers: userAnswers;
+}
+
+export function QuizResultsTemplate({
+  quiz,
+  userAnswers,
+}: QuizResultsTemplateProps) {
   return (
     <>
       <H3Heading>Quiz Complete!</H3Heading>

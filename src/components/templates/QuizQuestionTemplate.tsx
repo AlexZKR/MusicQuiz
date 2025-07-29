@@ -15,12 +15,19 @@ const QUESTION_RENDERERS: Record<
   'multi-select': MultiSelectQuestion,
 };
 
-export function QuizQuestionTemplate(
-  currQuestionIndex: number,
-  quiz: Quiz,
-  handleAnswer: (selectedIndexes: number[]) => void,
-  userAnswers: userAnswers
-) {
+interface QuizQuestionTemplateProps {
+  currQuestionIndex: number;
+  quiz: Quiz;
+  handleAnswer: (selectedIndexes: number[]) => void;
+  userAnswers: userAnswers;
+}
+
+export function QuizQuestionTemplate({
+  currQuestionIndex,
+  quiz,
+  handleAnswer,
+  userAnswers,
+}: QuizQuestionTemplateProps) {
   const q = quiz.questions[currQuestionIndex];
   const QuestionRenderer = QUESTION_RENDERERS[q.type];
   return (
