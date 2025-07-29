@@ -5,8 +5,8 @@ import {
   faCircleCheck,
   type IconDefinition,
 } from '@fortawesome/free-regular-svg-icons';
-import type { Question } from '../../../models/quiz';
-import { arrayCompare } from '../../../utils/arrayComparison';
+import { arrayCompare } from '../../../../utils/arrayComparison';
+import type { Question } from '../../../../models/quiz';
 
 interface QuestionLiProps {
   q: Question;

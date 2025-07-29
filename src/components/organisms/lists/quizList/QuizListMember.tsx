@@ -1,15 +1,15 @@
-import type { Quiz } from '../../../models/quiz';
-import { quizPath } from '../../../routes/routeUtils';
-import StyledLink from '../../atoms/links/StyledLink';
+import type { Quiz } from '../../../../models/quiz';
+import { quizPath } from '../../../../routes/routeUtils';
+import StyledLink from '../../../atoms/links/StyledLink';
 
-interface QuizProps {
+interface QuizLiMemberProps {
   q: Quiz;
 }
 
 /**
  * Used on the home page to display quizzes.
  */
-export default function QuizLiMember({ q }: QuizProps) {
+export default function QuizLiMember({ q }: QuizLiMemberProps) {
   return (
     <>
       <div className="text-content flex items-center justify-between p-1">

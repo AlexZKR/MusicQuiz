@@ -1,11 +1,11 @@
 import type { QuestionType, Quiz } from '../../models/quiz';
 import type { userAnswers } from '../pages/QuizPage';
 import { QuestionTypeBadge } from '../molecules/badges/QuestionTypeBadge';
-import ChooseOneQuestion from '../molecules/questions/chooseOneQuestion/ChooseOneQuestion';
+import ChooseOneQuestion from '../organisms/questions/chooseOneQuestion/ChooseOneQuestion';
 import { CurrentQuestionHeading } from '../molecules/headings/CurrentQuestion';
-import { QuestionProgressList } from '../organisms/QuestionProgressList';
-import type { QuizQuestionProps } from '../molecules/questions/props';
-import MultiSelectQuestion from '../molecules/questions/chooseMultiQuestion/MultiSelectQuestion';
+import { QuestionProgressList } from '../organisms/lists/quiestionList/QuestionProgressList';
+import type { QuizQuestionProps } from '../organisms/questions/props';
+import MultiSelectQuestion from '../organisms/questions/chooseMultiQuestion/MultiSelectQuestion';
 
 const QUESTION_RENDERERS: Record<
   QuestionType,
