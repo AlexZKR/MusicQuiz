@@ -1,7 +1,7 @@
 import type { Quiz } from '../../models/quiz';
 import H3Heading from '../atoms/headings/H3Heading';
 
-import type { userAnswers } from '../../pages/QuizPage';
+import type { userAnswers } from '../pages/QuizPage';
 import { QuestionProgressList } from '../organisms/QuestionProgressList';
 import { QuizSummaryLine } from '../organisms/QuizSummaryLine';
 

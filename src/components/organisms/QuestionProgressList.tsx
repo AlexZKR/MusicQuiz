@@ -1,5 +1,5 @@
 import type { Quiz } from '../../models/quiz';
-import type { userAnswers } from '../../pages/QuizPage';
+import type { userAnswers } from '../pages/QuizPage';
 import H3Heading from '../atoms/headings/H3Heading';
 import QuestionLiMember from '../molecules/liMembers/QuestionLiMember';
 

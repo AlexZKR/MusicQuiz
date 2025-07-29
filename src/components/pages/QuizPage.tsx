@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
-import type { QuestionId, QuizId } from '../models/quiz';
-import { getQuiz } from '../services/quizService';
+import type { QuestionId, QuizId } from '../../models/quiz';
+import { getQuiz } from '../../services/quizService';
 import NotFoundPage from './NotFound';
 import { useState } from 'react';
 
-import H1Heading from '../components/atoms/headings/H1Heading';
-import StyledLink from '../components/atoms/links/StyledLink';
-import { QuizQuestionTemplate } from '../components/templates/QuizQuestionTemplate';
-import { QuizResultsTemplate } from '../components/templates/QuizResultsTemplate';
+import H1Heading from '../atoms/headings/H1Heading';
+import StyledLink from '../atoms/links/StyledLink';
+import { QuizQuestionTemplate } from '../templates/QuizQuestionTemplate';
+import { QuizResultsTemplate } from '../templates/QuizResultsTemplate';
 
 export type userAnswers = {
   quizId: QuizId;

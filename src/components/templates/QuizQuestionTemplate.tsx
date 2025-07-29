@@ -1,5 +1,5 @@
 import type { QuestionType, Quiz } from '../../models/quiz';
-import type { userAnswers } from '../../pages/QuizPage';
+import type { userAnswers } from '../pages/QuizPage';
 import { QuestionTypeBadge } from '../molecules/badges/QuestionTypeBadge';
 import ChooseOneQuestion from '../molecules/questions/chooseOneQuestion/ChooseOneQuestion';
 import { CurrentQuestionHeading } from '../molecules/headings/CurrentQuestion';

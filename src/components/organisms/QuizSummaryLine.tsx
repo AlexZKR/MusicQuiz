@@ -1,5 +1,5 @@
 import type { Quiz } from '../../models/quiz';
-import type { userAnswers } from '../../pages/QuizPage';
+import type { userAnswers } from '../pages/QuizPage';
 import { arrayCompare } from '../../utils/arrayComparison';
 import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
 

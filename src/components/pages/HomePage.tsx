@@ -1,7 +1,7 @@
-import H1Heading from '../components/atoms/headings/H1Heading';
-import H2HeadingSubtitle from '../components/atoms/headings/H2HeadingSubtitle';
-import QuizLiMember from '../components/molecules/liMembers/QuizLiMember';
-import { getQuizzes } from '../services/quizService';
+import H1Heading from '../atoms/headings/H1Heading';
+import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
+import QuizLiMember from '../molecules/liMembers/QuizLiMember';
+import { getQuizzes } from '../../services/quizService';
 
 const HomePage = () => {
   const quizzes = getQuizzes();
