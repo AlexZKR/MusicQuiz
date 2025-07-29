@@ -1,28 +1,15 @@
 import type { Quiz } from '../../models/quiz';
-import { arrayCompare } from '../../utils/arrayComparison';
-import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
 import H3Heading from '../atoms/headings/H3Heading';
 
 import type { userAnswers } from '../../pages/QuizPage';
 import { QuestionProgressList } from '../organisms/QuestionProgressList';
+import { QuizSummaryLine } from '../organisms/QuizSummaryLine';
 
 export function QuizResultsTemplate(quiz: Quiz, userAnswers: userAnswers) {
-  function countCorrectAnswers(): number {
-    let results = 0;
-    for (const q of quiz.questions) {
-      if (arrayCompare(userAnswers.answers.get(q.id)!, q.answerIndexes)) {
-        results = results + 1;
-      }
-    }
-    return results;
-  }
-
   return (
     <>
       <H3Heading>Quiz Complete!</H3Heading>
-      <H2HeadingSubtitle>
-        You got {countCorrectAnswers()} out of {quiz.questions.length} answers!
-      </H2HeadingSubtitle>
+      <QuizSummaryLine quiz={quiz} userAnswers={userAnswers} />
       <section
         role="region"
         aria-label="Question progress"
