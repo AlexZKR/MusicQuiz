@@ -1,6 +1,6 @@
 import type { Quiz } from '../../models/quiz';
 import type { userAnswers } from '../../pages/QuizPage';
-import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
+import { QuestionTypeBadge } from '../molecules/badges/QuestionTypeBadge';
 import MultiSelectQuestion from '../molecules/chooseMultiQuestion/MultiSelectQuestion';
 import ChooseOneQuestion from '../molecules/chooseOneQuestion/ChooseOneQuestion';
 import { CurrentQuestionHeading } from '../molecules/headings/CurrentQuestion';
@@ -25,9 +25,7 @@ export function QuizQuestionTemplate(
         currentQuestion={currQuestionIndex + 1}
         totalQuestions={quiz.questions.length}
       />
-      <H2HeadingSubtitle className="text-tertiary bg-badge mx-auto mb-4 block max-w-fit rounded-2xl px-3 text-center">
-        {q.type === 'one-select' ? 'select one' : 'select one or many'}
-      </H2HeadingSubtitle>
+      <QuestionTypeBadge type={q.type} />
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Empty zone (spacer) */}
         <div></div>
