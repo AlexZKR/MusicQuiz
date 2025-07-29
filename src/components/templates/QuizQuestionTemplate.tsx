@@ -1,10 +1,19 @@
-import type { Quiz } from '../../models/quiz';
+import type { QuestionType, Quiz } from '../../models/quiz';
 import type { userAnswers } from '../../pages/QuizPage';
 import { QuestionTypeBadge } from '../molecules/badges/QuestionTypeBadge';
-import MultiSelectQuestion from '../molecules/chooseMultiQuestion/MultiSelectQuestion';
-import ChooseOneQuestion from '../molecules/chooseOneQuestion/ChooseOneQuestion';
+import ChooseOneQuestion from '../molecules/questions/chooseOneQuestion/ChooseOneQuestion';
 import { CurrentQuestionHeading } from '../molecules/headings/CurrentQuestion';
 import { QuestionProgressList } from '../organisms/QuestionProgressList';
+import type { QuizQuestionProps } from '../molecules/questions/props';
+import MultiSelectQuestion from '../molecules/questions/chooseMultiQuestion/MultiSelectQuestion';
+
+const QUESTION_RENDERERS: Record<
+  QuestionType,
+  React.ComponentType<QuizQuestionProps>
+> = {
+  'one-select': ChooseOneQuestion,
+  'multi-select': MultiSelectQuestion,
+};
 
 export function QuizQuestionTemplate(
   currQuestionIndex: number,
@@ -13,12 +22,7 @@ export function QuizQuestionTemplate(
   userAnswers: userAnswers
 ) {
   const q = quiz.questions[currQuestionIndex];
-  function getQuestionType() {
-    if (q.type === 'one-select') {
-      return <ChooseOneQuestion q={q} onSubmitAnswer={handleAnswer} />;
-    }
-    return <MultiSelectQuestion q={q} onSubmitAnswer={handleAnswer} />;
-  }
+  const QuestionRenderer = QUESTION_RENDERERS[q.type];
   return (
     <>
       <CurrentQuestionHeading
@@ -30,7 +34,7 @@ export function QuizQuestionTemplate(
         {/* Empty zone (spacer) */}
         <div></div>
         <section role="region" aria-label="Question prompt">
-          {getQuestionType()}
+          <QuestionRenderer q={q} onSubmitAnswer={handleAnswer} />
         </section>
         <section role="region" aria-label="Question progress">
           <QuestionProgressList

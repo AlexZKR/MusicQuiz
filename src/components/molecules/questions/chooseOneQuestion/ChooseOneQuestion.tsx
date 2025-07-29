@@ -1,13 +1,8 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import H3Heading from '../../atoms/headings/H3Heading';
-import type { Question } from '../../../models/quiz';
+import H3Heading from '../../../atoms/headings/H3Heading';
 import { QuestionOptions } from './Options';
-
-interface QuizQuestionProps {
-  q: Question;
-  onSubmitAnswer: (selectedIndexes: number[]) => void;
-}
+import type { QuizQuestionProps } from '../props';
 
 export default function ChooseOneQuestion({
   q,

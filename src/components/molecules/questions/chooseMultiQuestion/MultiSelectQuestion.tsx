@@ -1,13 +1,9 @@
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { QuestionOptions } from './Options';
-import H3Heading from '../../atoms/headings/H3Heading';
-import type { Question } from '../../../models/quiz';
 
-interface QuizQuestionProps {
-  q: Question;
-  onSubmitAnswer: (selectedIndexes: number[]) => void;
-}
+import type { QuizQuestionProps } from '../props';
+import H3Heading from '../../../atoms/headings/H3Heading';
 
 export default function MultiSelectQuestion({
   q,
