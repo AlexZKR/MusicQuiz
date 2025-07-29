@@ -4,7 +4,6 @@ import { getQuiz } from '../services/quizService';
 import NotFoundPage from './NotFound';
 import ChooseOneQuestion from '../components/molecules/chooseOneQuestion/ChooseOneQuestion';
 import { useState } from 'react';
-import QuestionLiMember from '../components/liMembers/QuestionLiMember';
 import { arrayCompare } from '../utils/arrayComparison';
 
 import H1Heading from '../components/atoms/headings/H1Heading';
@@ -12,6 +11,7 @@ import StyledLink from '../components/atoms/links/StyledLink';
 import H2HeadingSubtitle from '../components/atoms/headings/H2HeadingSubtitle';
 import H3Heading from '../components/atoms/headings/H3Heading';
 import MultiSelectQuestion from '../components/molecules/chooseMultiQuestion/MultiSelectQuestion';
+import { QuestionProgressList } from '../components/organisms/QuestionProgressList';
 
 export type userAnswers = {
   quizId: QuizId;
@@ -115,46 +115,6 @@ function QuizQuestionLayout(
             currQuestionIndex={currQuestionIndex}
           />
         </section>
-      </div>
-    </>
-  );
-}
-
-type QuestionProgressListProps = {
-  quiz: Quiz;
-  userAnswers: userAnswers;
-  currQuestionIndex: number;
-};
-
-function QuestionProgressList({
-  quiz,
-  userAnswers,
-  currQuestionIndex,
-}: QuestionProgressListProps) {
-  return (
-    <>
-      <div className="border-muted mx-4 flex flex-col rounded-xl border-3">
-        <H3Heading className="text-tertiary mb-4 pt-3 text-center text-2xl">
-          Question progress
-        </H3Heading>
-        <ul>
-          {quiz.questions.map((q, questionIndex) => {
-            const isCurrent = questionIndex === currQuestionIndex;
-            const questionAnswers = userAnswers.answers.get(q.id) ?? [];
-            return (
-              <li
-                key={q.id}
-                className={`text-content bg-surface ${isCurrent ? 'outline-primary outline-3' : ''} hover:bg-primary mx-4 mt-3 rounded-2xl pl-4 outline-0 first:mt-0 last:mb-4`}
-              >
-                <QuestionLiMember
-                  q={q}
-                  userAnswer={questionAnswers}
-                  isAnswered={questionIndex < currQuestionIndex}
-                />
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </>
   );
