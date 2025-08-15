@@ -5,6 +5,7 @@ import {
   getQuestionProgressRegion,
 } from './helpers';
 import type { Quiz } from '../../../src/models/quiz';
+import { expect } from 'vitest';
 
 export async function assertQuizResultScreenHappyPath(
   expResultString: string,

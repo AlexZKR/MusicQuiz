@@ -13,6 +13,7 @@ import {
   testQuiz,
   type QuestionProgressRegion,
 } from './helpers';
+import { expect } from 'vitest';
 
 /**
  * Assert quiz runner happy path by dividing screen into regions and asserting needed content in each.

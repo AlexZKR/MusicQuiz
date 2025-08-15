@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { QuestionSchema, QuizSchema } from '../../src/models/shemas';
 import { getQuiz, getQuizzes } from '../../src/services/quizService';
 

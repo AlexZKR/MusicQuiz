@@ -8,6 +8,7 @@ import { MemoryRouter } from 'react-router-dom';
 import AppRoutes from '../../../src/routes/AppRoutes';
 import '@testing-library/jest-dom';
 import { arrayCompare } from '../../../src/utils/arrayComparison';
+import { expect } from 'vitest';
 
 export const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
 

@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react';
 import * as service from '../../../src/services/quizService';
-import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { renderQuizPage, testQuiz } from './helpers';
 import { assertQuizRunnerHappyPath } from './assertQuizRunner';
 import { assertQuizResultScreenHappyPath } from './assertResultsScreen';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 interface Case {
   name: string;
@@ -28,11 +28,11 @@ const cases: Case[] = [
 
 describe('QuizPage happy paths', () => {
   beforeEach(() => {
-    jest.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
+    vi.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   test.each(cases)(
@@ -54,7 +54,7 @@ describe('QuizPage happy paths', () => {
 });
 
 test('validation error when submit and not selected answer', async () => {
-  jest.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
+  vi.spyOn(service, 'getQuiz').mockReturnValue(testQuiz);
   renderQuizPage(testQuiz.id);
 
   const submit = screen.getByRole('button', { name: /submit answer/i });
@@ -65,7 +65,7 @@ test('validation error when submit and not selected answer', async () => {
 });
 
 test('unknown quiz ID shows Not Found', () => {
-  jest.spyOn(service, 'getQuiz').mockImplementationOnce(() => {
+  vi.spyOn(service, 'getQuiz').mockImplementationOnce(() => {
     throw new Error('Quiz not found!');
   });
 

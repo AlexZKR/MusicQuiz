@@ -2,7 +2,6 @@ import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import jestPlugin from 'eslint-plugin-jest';
 import { fixupPluginRules } from '@eslint/compat';
 import prettierConfig from 'eslint-config-prettier';
 import globals from 'globals';
@@ -50,27 +49,6 @@ export default [
       'react-hooks': fixupPluginRules(reactHooks),
     },
     rules: reactHooks.configs.recommended.rules,
-  },
-
-  // Jest rules for test files
-  {
-    files: ['**/*.test.{js,jsx,ts,tsx}', '**/__tests__/**/*.{js,jsx,ts,tsx}'],
-    plugins: {
-      jest: jestPlugin,
-    },
-    rules: {
-      ...jestPlugin.configs.recommended.rules,
-      'jest/expect-expect': [
-        'warn',
-        {
-          assertFunctionNames: [
-            'expect',
-            'assertQuizRunnerHappyPath',
-            'assertQuizResultScreenHappyPath',
-          ],
-        },
-      ],
-    },
   },
 
   // Node.js environment for config files
