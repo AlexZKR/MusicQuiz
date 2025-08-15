@@ -5,14 +5,15 @@ import type { Question } from '../../../src/models/quiz';
 import {
   assertNoCheckboxesChecked,
   assertNoRadiosChecked,
-  extractIndicatorIconForProgressLi,
+  assertQuestionProgressList,
   getCheckboxes,
-  getQuizRunnerRegions,
+  getQuestionProgressRegion,
+  getQuestionPromptRegion,
   getRadioButton,
   testQuiz,
-  type QuizRunnerRegions,
+  type QuestionProgressRegion,
 } from './helpers';
-import { arrayCompare } from '../../../src/utils/arrayComparison';
+import { expect } from 'vitest';
 
 /**
  * Assert quiz runner happy path by dividing screen into regions and asserting needed content in each.
@@ -22,19 +23,16 @@ import { arrayCompare } from '../../../src/utils/arrayComparison';
  */
 export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
   // Assert that question progress list is filled with needed number of questions
-  let regions = getQuizRunnerRegions();
-  expect(
-    regions.questionProgress.questionList.length === testQuiz.questions.length
-  );
+  const questionProgress = getQuestionProgressRegion();
+  expect(questionProgress.questionList.length === testQuiz.questions.length);
 
   for (let i = 0; i < testQuiz.questions.length; i++) {
     const currQ = testQuiz.questions[i];
 
     // Assert regions for every question:
-    regions = getQuizRunnerRegions();
 
-    assertQuestionPromptScreen(regions, i, currQ);
-    assertQuestionProgressScreen(regions, i, btnSelections);
+    assertQuestionPromptScreen(getQuestionPromptRegion(), i, currQ);
+    assertQuestionProgressScreen(questionProgress, i, btnSelections);
 
     // Choose answer
     let btns: HTMLElement[] = [];
@@ -59,52 +57,30 @@ export async function assertQuizRunnerHappyPath(btnSelections: number[][]) {
 }
 
 async function assertQuestionProgressScreen(
-  regions: QuizRunnerRegions,
+  questionProgress: QuestionProgressRegion,
   currQuestionNumber: number,
   btnSelections: number[][]
 ) {
-  const currQuestionLi =
-    regions.questionProgress.questionList[currQuestionNumber];
+  const currQuestionLi = questionProgress.questionList[currQuestionNumber];
 
   // Assert current question is highlighted with outline
   const classAttr = currQuestionLi.getAttribute('class');
   expect(classAttr).toEqual(expect.stringContaining('outline-primary'));
 
-  //Assert that every question's indicator is filled correctly
-  // (empty (data-icon=circle) - not answered,
-  //  green (data-icon=circle-check) - right,
-  //  red (data-icon=circle-xmark) - false).
-  for (const [
-    j,
-    questionEl,
-  ] of regions.questionProgress.questionList.entries()) {
-    const indicator = extractIndicatorIconForProgressLi(questionEl);
-
-    // Assert green/red only for already answered questions. Others must be empty icons
-    if (j < currQuestionNumber) {
-      const isAnsweredRight = arrayCompare(
-        testQuiz.questions[j].answerIndexes,
-        btnSelections[j]
-      );
-
-      if (isAnsweredRight) {
-        expect(indicator).toEqual('circle-check');
-      } else {
-        expect(indicator).toEqual('circle-xmark');
-      }
-    } else {
-      expect(indicator).toEqual('circle');
-    }
-  }
+  assertQuestionProgressList(
+    currQuestionNumber,
+    btnSelections,
+    questionProgress.questionList
+  );
 }
 
 async function assertQuestionPromptScreen(
-  regions: QuizRunnerRegions,
+  PromptRegion: HTMLElement,
   currQuestionNumber: number,
   currQuestion: Question
 ) {
   // assert that the prompt region contains the current question’s text
-  expect(regions.questionPrompt).toHaveTextContent(currQuestion.text);
+  expect(PromptRegion).toHaveTextContent(currQuestion.text);
 
   // assert that no answers are chosen after render
   if (currQuestion.type === 'one-select') {

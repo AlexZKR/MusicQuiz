@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest';
 import { arrayCompare } from '../../src/utils/arrayComparison';
 
 interface Case<T> {

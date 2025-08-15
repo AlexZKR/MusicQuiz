@@ -7,6 +7,8 @@ import { FakeQuiz1Id, FakeQuizzes } from '../testdata';
 import { MemoryRouter } from 'react-router-dom';
 import AppRoutes from '../../../src/routes/AppRoutes';
 import '@testing-library/jest-dom';
+import { arrayCompare } from '../../../src/utils/arrayComparison';
+import { expect } from 'vitest';
 
 export const testQuiz = FakeQuizzes.get(FakeQuiz1Id)!;
 
@@ -15,32 +17,29 @@ export interface QuestionProgressRegion {
   questionList: HTMLElement[];
 }
 
-export interface QuizRunnerRegions {
-  questionPrompt: HTMLElement;
-  questionProgress: QuestionProgressRegion;
-}
-
 /**
- * Parses quiz runner screen and outputs regions as HTML elements
- * with needed data:
- * 1. Question prompt zone
- * 2. Question progress zone with a list of questions to assert state of each question
+ * @returns question progress region as HTML element
+ * with a list of questions to assert.
  */
-export function getQuizRunnerRegions(): QuizRunnerRegions {
-  const PromptRegion = screen.getByRole('region', {
-    name: /question prompt/i,
-  });
+export function getQuestionProgressRegion(): QuestionProgressRegion {
   const ProgressRegion = screen.getByRole('region', {
     name: /question progress/i,
   });
 
   return {
-    questionPrompt: PromptRegion,
-    questionProgress: {
-      region: ProgressRegion,
-      questionList: within(ProgressRegion).getAllByRole('listitem'),
-    },
+    region: ProgressRegion,
+    questionList: within(ProgressRegion).getAllByRole('listitem'),
   };
+}
+
+/**
+ *
+ * @returns Question prompt region
+ */
+export function getQuestionPromptRegion(): HTMLElement {
+  return screen.getByRole('region', {
+    name: /question prompt/i,
+  });
 }
 
 /**
@@ -81,6 +80,37 @@ export function renderQuizPage(quiz_id: string) {
       <AppRoutes />
     </MemoryRouter>
   );
+}
+/**
+ * Assert that every question's indicator is filled correctly
+ * (empty (data-icon=circle) - not answered,
+ * green (data-icon=circle-check) - right,
+ * red (data-icon=circle-xmark) - false).
+ */
+export function assertQuestionProgressList(
+  currQuestionNumber: number,
+  btnSelections: number[][],
+  questionProgressList: HTMLElement[]
+) {
+  for (const [j, questionEl] of questionProgressList.entries()) {
+    const indicator = extractIndicatorIconForProgressLi(questionEl);
+
+    // Assert green/red only for already answered questions. Others must be empty icons
+    if (j < currQuestionNumber) {
+      const isAnsweredRight = arrayCompare(
+        testQuiz.questions[j].answerIndexes,
+        btnSelections[j]
+      );
+
+      if (isAnsweredRight) {
+        expect(indicator).toEqual('circle-check');
+      } else {
+        expect(indicator).toEqual('circle-xmark');
+      }
+    } else {
+      expect(indicator).toEqual('circle');
+    }
+  }
 }
 
 export function assertNoRadiosChecked() {

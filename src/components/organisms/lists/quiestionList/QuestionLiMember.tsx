@@ -1,4 +1,3 @@
-import type { Question } from '../../models/quiz';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircle,
@@ -6,13 +5,17 @@ import {
   faCircleCheck,
   type IconDefinition,
 } from '@fortawesome/free-regular-svg-icons';
-import { arrayCompare } from '../../utils/arrayComparison';
+import { arrayCompare } from '../../../../utils/arrayComparison';
+import type { Question } from '../../../../models/quiz';
+
 interface QuestionLiProps {
   q: Question;
   userAnswer: number[];
   isAnswered: boolean;
 }
-
+/**
+ * Used in question progress list
+ */
 export default function QuestionLiMember({
   q,
   isAnswered,
