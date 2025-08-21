@@ -1,3 +1,4 @@
+import { major_formula, minor_formula } from '../../config/music_constants';
 import { type Note } from '../../models/note';
 import { NoteIterator } from './utils/note_iterator';
 
@@ -8,6 +9,13 @@ export class Key {
   constructor(root: Note, formula: number[]) {
     this.root = root;
     this.formula = formula;
+  }
+
+  scaleName(): string {
+    let name = `${this.root.name}`;
+    if (this.formula === major_formula) name += ' major scale';
+    if (this.formula === minor_formula) name += ' minor scale';
+    return name;
   }
 
   scaleNotes(): Note[] {
