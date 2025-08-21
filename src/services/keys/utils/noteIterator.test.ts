@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { NoteIterator, Notes, type Note } from './note';
+import { Notes, type Note } from '../../../models/note';
+import { NoteIterator } from './note_iterator';
 
 interface Case {
   name: string;
