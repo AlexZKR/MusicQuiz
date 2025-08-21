@@ -26,7 +26,7 @@ export class Key {
 
     //resolve C# vs Db problem - already added LETTERS shouldn't repeat (that's why name[0])
     const isNoteRepeating = (curr_note_letter: string) =>
-      result.every((n) => n.name[0] === curr_note_letter);
+      result.some((n) => n.name[0] === curr_note_letter);
 
     for (const note of new NoteIterator(this.root, -1)) {
       // infinite loop exit condition
