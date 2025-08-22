@@ -7,7 +7,7 @@ interface QuizLiMemberProps {
 }
 
 /**
- * Used on the home page to display quizzes.
+ * Used on the quiz choice page to display quizzes.
  */
 export default function QuizLiMember({ q }: QuizLiMemberProps) {
   return (
