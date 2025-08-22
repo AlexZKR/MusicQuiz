@@ -3,7 +3,7 @@ import H2HeadingSubtitle from '../atoms/headings/H2HeadingSubtitle';
 import { getQuizzes } from '../../services/quizService';
 import QuizList from '../organisms/lists/quizList/QuizList';
 
-const HomePage = () => {
+const QuizChoicePage = () => {
   const quizzes = getQuizzes();
   return (
     <div>
@@ -14,4 +14,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default QuizChoicePage;

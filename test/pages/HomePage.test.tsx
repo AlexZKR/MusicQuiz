@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import HomePage from '../../src/components/pages/HomePage';
+import QuizChoicePage from '../../src/components/pages/QuizChoicePage';
 import * as service from '../../src/services/quizService';
 import { FakeQuizzes } from './testdata';
 import { expect, test, vi } from 'vitest';
@@ -10,7 +10,7 @@ vi.spyOn(service, 'getQuizzes').mockReturnValue(FakeQuizzes);
 test('renders list of quizzes with correct links', () => {
   render(
     <MemoryRouter>
-      <HomePage />
+      <QuizChoicePage />
     </MemoryRouter>
   );
 
