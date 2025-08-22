@@ -19,32 +19,22 @@ const TheoryPage = () => {
     <div>
       <H1Heading>Theory page</H1Heading>
       <H2HeadingSubtitle>Some useful learning material!</H2HeadingSubtitle>
-      <div className="grid grid-cols-2 items-start gap-1">
-        {' '}
-        {/* Added items-start */}
-        <div>
-          <h3 className="text-primary mb-4 text-xl font-semibold">
+      <div className="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2">
+        <div className="my-2 flex flex-col items-center gap-3">
+          <h1 className="text-primary mb-4 text-3xl font-semibold">
             Minor scales
-          </h3>
-          <div className="flex flex-col items-start space-y-2">
-            {' '}
-            {/* Changed to flex-col items-start */}
-            {majorScales.map((scale) => (
-              <KeyScaleNotesList scaleKey={scale} key={scale.scaleName()} />
-            ))}
-          </div>
+          </h1>
+          {majorScales.map((scale) => (
+            <KeyScaleNotesList scaleKey={scale} key={scale.scaleName()} />
+          ))}
         </div>
-        <div>
-          <h3 className="text-primary mb-4 text-xl font-semibold">
+        <div className="my-2 flex flex-col items-center gap-3">
+          <h1 className="text-primary mb-4 text-3xl font-semibold">
             Major scales
-          </h3>
-          <div className="flex flex-col items-start space-y-2">
-            {' '}
-            {/* Changed to flex-col items-start */}
-            {minorScales.map((scale) => (
-              <KeyScaleNotesList scaleKey={scale} key={scale.scaleName()} />
-            ))}
-          </div>
+          </h1>
+          {minorScales.map((scale) => (
+            <KeyScaleNotesList scaleKey={scale} key={scale.scaleName()} />
+          ))}
         </div>
       </div>
     </div>

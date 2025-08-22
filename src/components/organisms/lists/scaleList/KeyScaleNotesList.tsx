@@ -7,7 +7,7 @@ export const KeyScaleNotesList = ({ scaleKey }: { scaleKey: Key }) => {
       <h3 className="text-secondary mb-1 text-xl font-semibold">
         {scaleKey.scaleName()}
       </h3>
-      <div className="flex items-baseline justify-baseline gap-1">
+      <div className="flex items-baseline justify-around gap-1">
         {scaleKey.scaleNotes().map((note, index) => (
           <KeyScaleNoteLi note={note} key={note.pitch} isRoot={index === 0} />
         ))}
