@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import Header from '../organisms/Header';
+import Header from '../organisms/havbar/Navbar';
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
