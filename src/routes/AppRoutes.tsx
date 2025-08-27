@@ -7,7 +7,7 @@ import TheoryPage from '../components/pages/TheoryPage';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<QuizChoicePage />} />
+      <Route path="c" element={<QuizChoicePage />} />
       <Route path="/theory" element={<TheoryPage />} />
       <Route path="/quiz/:id" element={<QuizPage />} />
 
