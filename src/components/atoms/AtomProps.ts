@@ -7,3 +7,7 @@ export interface DefaultAtomProps {
 export interface LinkProps extends DefaultAtomProps {
   to: string;
 }
+
+export interface ButtonProps extends DefaultAtomProps {
+  onClick: () => React.MouseEventHandler<HTMLButtonElement> | void;
+}
